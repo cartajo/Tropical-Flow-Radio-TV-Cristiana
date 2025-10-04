@@ -269,51 +269,7 @@ footer{padding:18px;text-align:center;color:var(--muted);font-size:14px}
 
 <hr>
 
-<h3>Horarios / Programación</h3>
-<ul>
-<li><strong>06:00 - 09:00</strong> — Música de alabanza y oración matutina</li>
-<li><strong>12:00 - 13:00</strong> — Mensaje del día</li>
-<li><strong>18:00 - 20:00</strong> — Música cristiana contemporánea</li>
-</ul>
 
-<hr>
-
-<h3>Contacto</h3>
-<p>Correo: <a href="mailto:cartajo1970@gmail.com">cartajo1970@gmail.com</a></p>
-<p>WhatsApp: <a href="https://wa.me/17873133929" target="_blank">+1 787-313-3929</a></p>
-</aside>
-</main>
-
-<!-- CONTROLES FLOTANTES -->
-<div class="floating-controls">
-  <button id="btnPlayPause">Play/Pause</button>
-  <button id="btnNext">Siguiente</button>
-</div>
-
-<footer>
-<div class="container">© Tropical Flow RadioTv Cristiana — Dedicado a Dios.</div>
-</footer>
-
-<script src="https://www.youtube.com/iframe_api"></script>
-<script>
-const stream=document.getElementById('stream');
-const playBtn=document.getElementById('playStream');
-const stopBtn=document.getElementById('stopStream');
-const listeners=document.getElementById('listeners');
-
-playBtn.addEventListener('click',()=>stream.play().catch(()=>alert('No se puede reproducir el stream.')));
-stopBtn.addEventListener('click',()=>{stream.pause();stream.currentTime=0;});
-listeners.innerText='—';
-
-async function updateListeners(){
-  try{
-    const resp=await fetch('https://your-stream-url.example/status-json.xsl');
-    const data=await resp.json();
-    listeners.innerText=data.icestats.source[0].listeners || '—';
-  }catch{listeners.innerText='—';}
-}
-setInterval(updateListeners,15000);
-updateListeners();
 
 // MP3 LOCAL
 const fileInput=document.getElementById('fileInput');

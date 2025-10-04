@@ -10,6 +10,7 @@
   <meta name="theme-color" content="#00bfff">
 
   <style>
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
@@ -17,13 +18,30 @@
       color: #fff;
       text-align: center;
       overflow-x: hidden;
-      animation: gradientBG 10s ease infinite alternate;
       background-size: 200% 200%;
+      animation: gradientBG 12s ease infinite alternate;
     }
     @keyframes gradientBG {
       0% {background-position: left;}
       100% {background-position: right;}
     }
+
+    /* Fondo de nubes en movimiento */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: url('https://i.imgur.com/2yYyHLL.png') repeat-x;
+      opacity: 0.2;
+      animation: clouds 60s linear infinite;
+      z-index: -1;
+    }
+    @keyframes clouds {
+      from {background-position: 0 0;}
+      to {background-position: -2000px 0;}
+    }
+
     header {
       background: rgba(0,0,0,0.6);
       padding: 15px;
@@ -92,9 +110,33 @@
     .paypal-button:hover {
       background: #fff;
     }
+
+    /* Botón flotante */
+    #playButton {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #ffd700;
+      color: #000;
+      border: none;
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      font-size: 28px;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      cursor: pointer;
+      z-index: 10;
+      transition: transform 0.3s;
+    }
+    #playButton:hover {
+      transform: scale(1.1);
+    }
+
     @media (max-width:600px){
       h2{font-size:1.2em;}
       .videos iframe{height:250px;}
+      #playButton{width:60px; height:60px; font-size:24px;}
     }
   </style>
 </head>
@@ -105,7 +147,7 @@
 
   <section class="radio-player">
     <h2>🎧 Escúchanos en Vivo</h2>
-    <audio controls autoplay>
+    <audio id="radio" autoplay>
       <source src="http://tropicalflowtv.radiostream321.com/" type="audio/mpeg">
       Tu navegador no soporta el audio en vivo.
     </audio>
@@ -129,7 +171,26 @@
     <p style="margin-top:15px;">© 2025 Tropical Flow RadioTv Cristiana — Todos los derechos reservados</p>
   </footer>
 
+  <!-- Botón flotante -->
+  <button id="playButton">⏸</button>
+
   <script>
+    const audio = document.getElementById('radio');
+    const playButton = document.getElementById('playButton');
+    let isPlaying = true;
+
+    playButton.addEventListener('click', () => {
+      if (isPlaying) {
+        audio.pause();
+        playButton.textContent = '▶';
+      } else {
+        audio.play();
+        playButton.textContent = '⏸';
+      }
+      isPlaying = !isPlaying;
+    });
+
+    // Registrar PWA
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('service-worker.js')
       .then(() => console.log("PWA activa ✅"))
@@ -138,5 +199,3 @@
   </script>
 </body>
 </html>
-
-

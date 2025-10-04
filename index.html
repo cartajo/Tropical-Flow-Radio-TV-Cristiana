@@ -420,9 +420,9 @@ footer{padding:18px;text-align:center;color:var(--muted);font-size:14px}
     ctx.fillText(line,x,y);
   }
 
-  // VIDEOS YOUTUBE PLAYLIST AUTOMÁTICO CON AUTOPLAY MÓVILES
+  // VIDEOS YOUTUBE PLAYLIST AUTOMÁTICO ESCALABLE
   let player;
-  const videoPlaylist=["A0BUNnIZYwY","B1CDEF2GH3I","C4HIJK5LM6N"]; // IDs de tus videos
+  let videoPlaylist=["A0BUNnIZYwY","B1CDEF2GH3I","C4HIJK5LM6N"]; // <-- Aquí agrega los IDs de todos tus videos
   let currentVideo=0;
 
   function onYouTubeIframeAPIReady(){

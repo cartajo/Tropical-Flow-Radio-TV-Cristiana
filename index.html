@@ -300,74 +300,6 @@ async function updateListeners(){
 }
 setInterval(updateListeners,15000);
 updateListeners();
-// MP3 LOCAL
-const fileInput=document.getElementById('fileInput');
-const playlistEl=document.getElementById('playlistMP3');
-let mp3Tracks=[];
-let videoTracks=["A0BUNnIZYwY","B1CDEF2GH3I"]; // IDs de YouTube
-let currentIndex=parseInt(localStorage.getItem('currentIndex'))||0;
-let currentType=localStorage.getItem('currentType')||'mp3';
-let localPlayer=new Audio();
-let player;
-let isPlayingVideo=false;
-
-function renderMP3Playlist(){
-  playlistEl.innerHTML='';
-  mp3Tracks.forEach((t,i)=>{
-    const div=document.createElement('div');
-    div.className='track';
-    div.innerHTML=`<div style="max-width:70%">${t.name}</div><div><button data-i="${i}" class="btn secondary">Reproducir</button></div>`;
-    playlistEl.appendChild(div);
-  });
-}
-
-fileInput.addEventListener('change',e=>{
-  const files=Array.from(e.target.files);
-  files.forEach(f=>mp3Tracks.push({name:f.name,url:URL.createObjectURL(f)}));
-  renderMP3Playlist();
-});
-
-playlistEl.addEventListener('click',e=>{
-  const btn=e.target.closest('button');
-  if(!btn) return;
-  const i=Number(btn.dataset.i);
-  if(Number.isFinite(i)) playMedia(i,'mp3');
-});
-
-function playMedia(index,type){
-  currentIndex=index;
-  currentType=type;
-  localStorage.setItem('currentIndex',currentIndex);
-  localStorage.setItem('currentType',currentType);
-  if(type==='mp3'){
-    isPlayingVideo=false;
-    player && player.pauseVideo && player.pauseVideo();
-    localPlayer.src=mp3Tracks[index].url;
-    localPlayer.play();
-  }else{
-    isPlayingVideo=true;
-    localPlayer.pause();
-    player.loadVideoById(videoTracks[index]);
-    player.mute();
-    setTimeout(()=>player.unMute(),500);
-  }
-}
-
-function nextMedia(){
-  if(currentType==='mp3'){
-    currentIndex++;
-    if(currentIndex>=mp3Tracks.length){
-      if(videoTracks.length>0){currentType='video';currentIndex=0;}else{currentIndex=0;}
-    }
-    playMedia(currentIndex,currentType);
-  }else{
-    currentIndex++;
-    if(currentIndex>=videoTracks.length){currentType='mp3';currentIndex=0;}
-    playMedia(currentIndex,currentType);
-  }
-}
-
-localPlayer.addEventListener('ended',()=>nextMedia());
 
 // CONTROLES FLOTANTES
 document.getElementById('btnPlayPause').addEventListener('click',()=>{
@@ -380,7 +312,27 @@ document.getElementById('btnPlayPause').addEventListener('click',()=>{
 });
 
 document.getElementById('btnNext').addEventListener('click',()=>nextMedia());
+// YOUTUBE PLAYER
+function onYouTubeIframeAPIReady(){
+  player=new YT.Player('youtubePlayer',{
+    height:'100%',
+    width:'100%',
+    videoId:videoTracks[0],
+    playerVars:{autoplay:1,controls:1,mute:1},
+    events:{'onReady':()=>{playMedia(currentIndex,currentType)},'onStateChange':onVideoStateChange}
+  });
+}
 
+function onVideoStateChange(event){
+  if(event.data===YT.PlayerState.ENDED) nextMedia();
+}
+
+// AUTOPLAY INICIAL
+window.addEventListener('load',()=>{playMedia(currentIndex,currentType)});
+</script>
+</body>
+</html>
+ 
 
 
 

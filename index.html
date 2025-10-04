@@ -8,7 +8,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <meta name="theme-color" content="#a8e0ff">
   <style>
-    /* ====== Estilos generales ====== */
     *{box-sizing:border-box}
     body{
       margin:0;
@@ -29,14 +28,16 @@
       align-items:center;
       justify-content:space-between;
       gap:10px;
+      flex-wrap:wrap;
     }
     header .brand{
       display:flex;
       align-items:center;
       gap:12px;
     }
-    header img{width:48px;height:48px;border-radius:10px;object-fit:cover;}
-    header .title{font-size:1.05rem;}
+    header img{width:64px;height:64px;border-radius:12px;object-fit:cover;}
+    header .title{font-size:1.3rem;font-weight:700;color:#013243;line-height:1.2;}
+    header .subtitle{font-size:0.95rem;color:#0b72a6;line-height:1.3;}
 
     .container{
       max-width:980px;
@@ -44,7 +45,6 @@
       padding:0 16px;
     }
 
-    /* ====== Player / emisora ====== */
     .player-card{
       background: rgba(255,255,255,0.9);
       border-radius:16px;
@@ -70,7 +70,6 @@
       box-shadow:0 6px 12px rgba(11,114,166,0.18);
     }
 
-    /* iframe de la emisora (embed) */
     .station-frame{
       width:100%;
       height:120px;
@@ -84,7 +83,6 @@
       margin-top:8px;
     }
 
-    /* ====== Carrusel de videos ====== */
     .carousel{
       margin-top:22px;
       background: rgba(255,255,255,0.95);
@@ -104,12 +102,12 @@
       align-items:center;
       margin-top:10px;
       gap:10px;
+      flex-wrap:wrap;
     }
     .dots{display:flex;gap:8px;justify-content:center;margin-top:10px;}
     .dot{width:10px;height:10px;border-radius:50%;background:#d0e8fb;cursor:pointer;opacity:0.6}
     .dot.active{background:#0b72a6;opacity:1}
 
-    /* ====== Footer ====== */
     footer{
       margin-top:26px;
       padding:18px;
@@ -138,37 +136,25 @@
 </head>
 <body>
   <header>
-  <div class="brand" style="align-items:center;gap:12px">
-    <!-- Logo más grande y visible -->
-    <img src="https://i.imgur.com/1bI8F2P.png" alt="TropicalFlowTV" style="width:64px;height:64px;object-fit:cover;border-radius:12px;">
-
-    <div style="text-align:left">
-      <div class="title" style="font-size:1.3rem; font-weight:700; color:#013243; line-height:1.2">
-        🌤 Bienvenidos a Tropical Flow RadioTv Cristiana
-      </div>
-      <div style="font-size:0.95rem; color:#0b72a6; margin-top:4px; line-height:1.3">
-        Música y Palabra 24/7 — Amor, adoración y esperanza
+    <div class="brand">
+      <img src="https://i.imgur.com/1bI8F2P.png" alt="TropicalFlowTV">
+      <div style="text-align:left">
+        <div class="title">🌤 Bienvenidos a Tropical Flow RadioTv Cristiana</div>
+        <div class="subtitle">Música y Palabra 24/7 — Amor, adoración y esperanza</div>
       </div>
     </div>
-  </div>
-
-  <div>
     <a class="big-btn" href="#player" onclick="document.getElementById('nativeRadio').scrollIntoView({behavior:'smooth'})">
       Escuchar Ahora ▶
     </a>
-  </div>
-</header>
-
+  </header>
 
   <main class="container">
-    <!-- ====== Tarjeta del Player ====== -->
-    <section id="player" class="player-card" aria-label="Reproductor en vivo">
+    <section id="player" class="player-card">
       <div class="player-left">
         <h3 style="margin:6px 0 4px;color:#013243">🎧 Emisora principal (Radio Nueva Vida)</h3>
         <iframe class="station-frame" src="https://nuevavida.com/escucha-en-vivo/" title="Radio Nueva Vida - Escucha en vivo"></iframe>
         <p style="margin-top:8px;font-size:0.92rem;color:#235d74">Si por alguna razón no carga el embed, abajo tienes el reproductor nativo.</p>
       </div>
-
       <div class="player-right">
         <h3 style="margin:6px 0 4px;color:#013243">🔊 Reproductor alterno</h3>
         <audio id="nativeRadio" controls preload="none">
@@ -179,8 +165,8 @@
       </div>
     </section>
 
-    <!-- ====== Carrusel automático de videos ====== -->
-    <section class="carousel" aria-label="Videos de adoración">
+    <!-- Carrusel de videos -->
+    <section class="carousel">
       <h3 style="margin:6px 0 10px;color:#013243">📺 Videos de adoración</h3>
       <div id="videoWrap">
         <iframe id="videoFrame" src="https://www.youtube.com/embed/3Uo0JAUWijM?rel=0&showinfo=0&modestbranding=1"
@@ -188,7 +174,6 @@
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
           allowfullscreen></iframe>
       </div>
-
       <div class="carousel-controls">
         <div style="font-size:.95rem;color:#235d74">Ahora reproduciendo: <span id="videoTitle">"What a Beautiful Name" — Hillsong</span></div>
         <div>
@@ -196,8 +181,7 @@
           <button onclick="nextVideo()" style="padding:8px 12px;border-radius:8px;border:0;background:#e6f7ff;font-weight:700;cursor:pointer">▶</button>
         </div>
       </div>
-
-      <div class="dots" id="dotsContainer" aria-hidden="false"></div>
+      <div class="dots" id="dotsContainer"></div>
     </section>
   </main>
 
@@ -206,7 +190,6 @@
       <strong>© 2025 Tropical Flow RadioTv Cristiana</strong>
       <div style="font-size:.86rem;color:#2a6b88">Que la paz y la adoración te acompañen hoy.</div>
     </div>
-
     <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
       <div class="social">
         <a href="https://wa.me/17873133929" target="_blank" rel="noopener">📱 WhatsApp</a>
@@ -217,9 +200,7 @@
     </div>
   </footer>
 
-  <!-- ====== Scripts: carrusel y control ====== -->
   <script>
-    // Lista de videos (pon aquí tus videos cristianos)
     const videos = [
       {id: '3Uo0JAUWijM', title: 'What a Beautiful Name — Hillsong'},
       {id: 'Sl8vwKye0XI', title: 'Oceans (Where Feet May Fail) — Hillsong UNITED'},
@@ -233,7 +214,6 @@
     const titleEl = document.getElementById('videoTitle');
     const dotsContainer = document.getElementById('dotsContainer');
 
-    // Crear dots
     videos.forEach((v,i)=>{
       const d = document.createElement('div');
       d.className='dot'+(i===0?' active':'');
@@ -250,34 +230,18 @@
       dots.forEach((dot, idx)=> dot.classList.toggle('active', idx===i));
     }
 
-    function nextVideo(){
-      current = (current + 1) % videos.length;
-      loadVideo(current);
-      resetTimer();
-    }
-    function prevVideo(){
-      current = (current - 1 + videos.length) % videos.length;
-      loadVideo(current);
-      resetTimer();
-    }
-    function goTo(i){
-      current = i;
-      loadVideo(current);
-      resetTimer();
-    }
+    function nextVideo(){ current = (current + 1) % videos.length; loadVideo(current); resetTimer(); }
+    function prevVideo(){ current = (current - 1 + videos.length) % videos.length; loadVideo(current); resetTimer(); }
+    function goTo(i){ current = i; loadVideo(current); resetTimer(); }
 
     let carouselTimer = setInterval(nextVideo, 18000);
-    function resetTimer(){
-      clearInterval(carouselTimer);
-      carouselTimer = setInterval(nextVideo, 18000);
-    }
+    function resetTimer(){ clearInterval(carouselTimer); carouselTimer = setInterval(nextVideo, 18000); }
 
     loadVideo(0);
 
-    // autoplay audio nativo si el usuario interactúa
     document.addEventListener('click', function oncePlay() {
       const audio = document.getElementById('nativeRadio');
-      if (audio && audio.paused) audio.play().catch(()=>{});
+      if(audio && audio.paused) audio.play().catch(()=>{});
       document.removeEventListener('click', oncePlay);
     });
   </script>

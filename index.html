@@ -34,15 +34,11 @@
 </head>
 <body>
   <header>
-    <div class="container brand">
-      <div class="logo">TF</div>
-      <div>
-        <h1>Tropical Flow RadioTv Cristiana</h1>
-        <p class="lead">Música cristiana, predicaciones y oración — Dedicado a Dios 🙏</p>
-      </div>
+        </div>
     </div>
-  </header>  <main class="container">
-    <!-- MAIN LEFT: PLAYER, PRAYER, YOUTUBE -->
+  </header>
+  <main class="container">
+    <!-- PLAYER EN VIVO Y PLAYLIST -->
     <section class="card">
       <h2>Reproductor — En vivo / AutoDJ</h2>
       <p class="lead">Usa el botón Reproducir para escuchar la transmisión en vivo. La playlist de videos y MP3 funciona automáticamente uno tras otro.</p>
@@ -67,6 +63,16 @@
         <div class="playlist" id="playlist"></div>
 
         <hr>
+
+        <!-- Playlist de videos -->
+        <h3>Videos (YouTube / MP4)</h3>
+       <div id="videoContainer" style="aspect-ratio:16/9;overflow:hidden;border-radius:8px;border:1px solid #efe7d8">
+  
+         <iframe id="videoPlayer" width="100%" height="100%" src="https://www.youtube.com/embed/A0BUNnIZYwY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+
 
 </section>
 

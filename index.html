@@ -139,7 +139,6 @@
 <body>
   <header>
     <div class="brand">
-      <!-- pequeño logo (puedes reemplazar con tu imagen) -->
       <img src="https://i.imgur.com/1bI8F2P.png" alt="TropicalFlowTV">
       <div>
         <div class="title">🌤 Bienvenidos a Tropical Flow RadioTv Cristiana</div>
@@ -156,34 +155,28 @@
     <section id="player" class="player-card" aria-label="Reproductor en vivo">
       <div class="player-left">
         <h3 style="margin:6px 0 4px;color:#013243">🎧 Emisora principal (Radio Nueva Vida)</h3>
-        <!-- EMBED de la emisora escogida: uso la página oficial de "Escucha en vivo" (si el navegador permite el embed) -->
-        <!-- Si prefieres un stream mp3 directo, lo cambiamos aquí por la URL directa -->
         <iframe class="station-frame" src="https://nuevavida.com/escucha-en-vivo/" title="Radio Nueva Vida - Escucha en vivo"></iframe>
-
-        <p style="margin-top:8px;font-size:0.92rem;color:#235d74">Si por alguna razón no carga el embed, abajo tienes el reproductor nativo (fallback) que usará tu stream.</p>
+        <p style="margin-top:8px;font-size:0.92rem;color:#235d74">Si por alguna razón no carga el embed, abajo tienes el reproductor nativo.</p>
       </div>
 
       <div class="player-right">
         <h3 style="margin:6px 0 4px;color:#013243">🔊 Reproductor alterno</h3>
-
-        <!-- Reproductor nativo con fallback a tu propio stream -->
         <audio id="nativeRadio" controls preload="none">
-          <!-- URL alternativa (tu stream) -->
           <source src="http://tropicalflowtv.radiostream321.com/" type="audio/mpeg">
           Tu navegador no soporta audio en vivo.
         </audio>
-
-        <p style="margin-top:8px;font-size:0.9rem;color:#1b6b86">Transmitiendo fe, esperanza y adoración — si quieres cambiar la emisora aquí pon la URL directa del stream.</p>
+        <p style="margin-top:8px;font-size:0.9rem;color:#1b6b86">Transmitiendo fe, esperanza y adoración.</p>
       </div>
     </section>
 
-    <!-- ====== Carrusel automático de videos (adoración moderna) ====== -->
+    <!-- ====== Carrusel automático de videos ====== -->
     <section class="carousel" aria-label="Videos de adoración">
       <h3 style="margin:6px 0 10px;color:#013243">📺 Videos de adoración</h3>
-
-      <!-- iframe donde se cargan los videos del carrusel -->
       <div id="videoWrap">
-        <iframe id="videoFrame" src="https://www.youtube.com/embed/3Uo0JAUWijM?rel=0&showinfo=0&modestbranding=1" title="Video de adoración" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe id="videoFrame" src="https://www.youtube.com/embed/3Uo0JAUWijM?rel=0&showinfo=0&modestbranding=1" 
+          title="Video de adoración" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen></iframe>
       </div>
 
       <div class="carousel-controls">
@@ -216,7 +209,7 @@
 
   <!-- ====== Scripts: carrusel y control ====== -->
   <script>
-    // Lista de videos (puedes cambiar los IDs por los que prefieras)
+    // Lista de videos (pon aquí tus videos cristianos)
     const videos = [
       {id: '3Uo0JAUWijM', title: 'What a Beautiful Name — Hillsong'},
       {id: 'Sl8vwKye0XI', title: 'Oceans (Where Feet May Fail) — Hillsong UNITED'},
@@ -241,9 +234,8 @@
 
     function loadVideo(i){
       const vid = videos[i];
-      frame.src = https://www.youtube.com/embed/${vid.id}?rel=0&autoplay=1&mute=0&showinfo=0&modestbranding=1;
+      frame.src = `https://www.youtube.com/embed/${vid.id}?rel=0&autoplay=1&mute=0&showinfo=0&modestbranding=1`;
       titleEl.textContent = vid.title;
-      // actualizar dots
       const dots = document.querySelectorAll('.dot');
       dots.forEach((dot, idx)=> dot.classList.toggle('active', idx===i));
     }
@@ -264,25 +256,20 @@
       resetTimer();
     }
 
-    // autoplay carousel cada 18 segundos
     let carouselTimer = setInterval(nextVideo, 18000);
     function resetTimer(){
       clearInterval(carouselTimer);
       carouselTimer = setInterval(nextVideo, 18000);
     }
 
-    // cargar video inicial (sin esperar)
     loadVideo(0);
 
-    // Mejora UX: intenta reproducir el audio nativo si el usuario interactúa (políticas de autoplay)
+    // autoplay audio nativo si el usuario interactúa
     document.addEventListener('click', function oncePlay() {
       const audio = document.getElementById('nativeRadio');
-      if (audio && audio.paused) {
-        // intenta play; si falla por política de autoplay, el usuario ya dio click así que funcionará.
-        audio.play().catch(()=>{/* no romper si bloquea */});
-      }
+      if (audio && audio.paused) audio.play().catch(()=>{});
       document.removeEventListener('click', oncePlay);
     });
   </script>
 </body>
-</html>you
+</html>

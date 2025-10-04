@@ -45,25 +45,29 @@
     <!-- MAIN LEFT: PLAYER, PRAYER, YOUTUBE -->
     <section class="card">
       <h2>Reproductor — En vivo / AutoDJ</h2>
-      <p class="lead">Usa el botón Reproducir para escuchar la transmisión en vivo. Si tienes archivos MP3, súbelos a la lista y úsalos como reproducción local.</p><div class="player">
-    <!-- Streaming audio element; reemplaza STREAM_URL con tu URL de Icecast/AzuraCast/SHOUTcast -->
-    <audio id="stream" controls preload="none">
-      <source id="streamSource" src="https://your-stream-url.example/stream.mp3" type="audio/mpeg">
-      Tu navegador no soporta audio en línea.
-    </audio>
+      <p class="lead">Usa el botón Reproducir para escuchar la transmisión en vivo. La playlist de videos y MP3 funciona automáticamente uno tras otro.</p>
+      
+      <div class="player">
+        <!-- Streaming en vivo -->
+        <audio id="stream" controls preload="none">
+          <source id="streamSource" src="https://your-stream-url.example/stream.mp3" type="audio/mpeg">
+          Tu navegador no soporta audio en línea.
+        </audio>
+        <div class="controls">
+          <button id="playStream" class="btn">Play Transmisión</button>
+          <button id="stopStream" class="btn secondary">Detener</button>
+          <div style="margin-left:auto;color:var(--muted)">Conectados: <span id="listeners">—</span></div>
+        </div>
 
-    <div class="controls">
-      <button id="playStream" class="btn">Play Transmisión</button>
-      <button id="stopStream" class="btn secondary">Detener</button>
-      <div style="margin-left:auto;color:var(--muted)">Conectados: <span id="listeners">—</span></div>
-    </div>
+        <hr>
 
-    <hr>
+        <!-- Playlist local -->
+        <h3>Playlist local (MP3)</h3>
+        <input id="fileInput" type="file" accept="audio/*" multiple>
+        <div class="playlist" id="playlist"></div>
 
-    <h3>Playlist local (sube MP3)</h3>
-    <input id="fileInput" type="file" accept="audio/*" multiple>
-    <div class="playlist" id="playlist"></div>
-  </div>
+        <hr>
+
 </section>
 
 <!-- RIGHT: DONATE, SCHEDULE, CONTACT -->
@@ -83,16 +87,16 @@
 
   <h3>Horarios / Programación</h3>
   <ul>
-    <li><strong>06:00 - 09:00</strong> — Música de alabanza y oración matutina</li>
-    <li><strong>12:00 - 13:00</strong> — Mensaje del día</li>
-    <li><strong>18:00 - 20:00</strong> — Música cristiana contemporánea</li>
+    <li><strong>06:00AM - 09:00AM</strong> — Música de alabanza y oración matutina</li>
+    <li><strong>12:00PM - 01:00PM</strong> — Mensaje del día</li>
+    <li><strong>09:30AM - 06:00PM</strong> — Música cristiana contemporánea</li>
   </ul>
 
   <hr>
 
   <h3>Contacto</h3>
   <p>Correo: <a href="mailto:cartajo1970@gmail.com">cartajo1970@gmail.com</a></p>
-  <p>WhatsApp: <a href="https://wa.me/17873133929" target="_blank">+1 787-313-3929</a></p>
+  <p>WhatsApp: <a href="https://wa.me/19399029695" target="_blank">+1 939-902-9695</a></p>
 </aside>
 
 <!-- FULL WIDTH: YouTube embeds + Oración diaria -->
@@ -127,7 +131,7 @@
 </section>
 
   </main>  <footer>
-    <div class="container">© Tropical Flow RadioTv Cristiana — Dedicado a Dios. Creado con amor. Si quieres que personalice colores, logo o secciones, dime y lo ajusto.</div>
+    <div class="container">© 2025 Tropical Flow RadioTv Cristiana — Dedicado a Dios. Creado con amor. </div>
   </footer>  <script>
     // Simple JS: control de stream y playlist local
     const stream = document.getElementById('stream');

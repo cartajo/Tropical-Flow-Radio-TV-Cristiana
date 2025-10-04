@@ -1,216 +1,224 @@
 <!doctype html>
-
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Tropical Flow RadioTv Cristiana</title>
-  <meta name="description" content="Tropical Flow RadioTv Cristiana — Música y mensajes para honrar a Dios.">
-  <style>
-    :root{--bg:#fffaf0;--accent:#2b6cb0;--muted:#6b7280;--card:#ffffff}
-    *{box-sizing:border-box}
-    body{font-family:Inter,system-ui,Arial,Helvetica,sans-serif;background:var(--bg);color:#222;margin:0}
-    header{background:linear-gradient(90deg,#f7edd6,#fff);padding:22px 18px;border-bottom:1px solid #eee}
-    .container{max-width:1100px;margin:0 auto;padding:20px}
-    .brand{display:flex;gap:14px;align-items:center}
-    .logo{width:64px;height:64px;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent);box-shadow:0 6px 18px rgba(43,108,176,0.08)}
-    h1{margin:0;font-size:20px}
-    p.lead{margin:4px 0 0;color:var(--muted)}
-    main{display:grid;grid-template-columns:1fr;gap:18px;margin-top:18px}
-    .card{background:var(--card);padding:14px;border-radius:12px;box-shadow:0 6px 18px rgba(16,24,40,0.04);border:1px solid #f0e9df}
-    /* Player */
-    .player{display:flex;flex-direction:column;gap:10px}
-    .controls{display:flex;gap:10px;align-items:center}
-    .btn{background:var(--accent);color:#fff;border:none;padding:10px 14px;border-radius:10px;cursor:pointer}
-    .btn.secondary{background:transparent;color:var(--accent);border:1px solid var(--accent)}
-    .playlist{display:flex;flex-direction:column;gap:8px}
-    .track{display:flex;justify-content:space-between;align-items:center;padding:8px;border-radius:8px;background:linear-gradient(180deg,#fff,#fff);border:1px solid #f6efe6}
-    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-    .full{grid-column:1/-1}
-    footer{padding:18px;text-align:center;color:var(--muted);font-size:14px}
-    /* Responsive */
-    @media(min-width:800px){main{grid-template-columns:2fr 1fr}}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tropical Flow RadioTv Cristiana</title>
+<meta name="description" content="Tropical Flow RadioTv Cristiana — Música y mensajes para honrar a Dios.">
+<style>
+:root{--bg:#fffaf0;--accent:#2b6cb0;--muted:#6b7280;--card:#ffffff}
+*{box-sizing:border-box}
+body{font-family:Inter,system-ui,Arial,Helvetica,sans-serif;background:var(--bg);color:#222;margin:0}
+header{background:linear-gradient(90deg,#f7edd6,#fff);padding:22px 18px;border-bottom:1px solid #eee}
+.container{max-width:1100px;margin:0 auto;padding:20px}
+.brand{display:flex;gap:14px;align-items:center}
+.logo{width:64px;height:64px;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent);box-shadow:0 6px 18px rgba(43,108,176,0.08)}
+h1{margin:0;font-size:20px}
+p.lead{margin:4px 0 0;color:var(--muted)}
+main{display:grid;grid-template-columns:1fr;gap:18px;margin-top:18px}
+.card{background:var(--card);padding:14px;border-radius:12px;box-shadow:0 6px 18px rgba(16,24,40,0.04);border:1px solid #f0e9df}
+.player{display:flex;flex-direction:column;gap:10px}
+.controls{display:flex;gap:10px;align-items:center}
+.btn{background:var(--accent);color:#fff;border:none;padding:10px 14px;border-radius:10px;cursor:pointer}
+.btn.secondary{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.playlist{display:flex;flex-direction:column;gap:8px}
+.track{display:flex;justify-content:space-between;align-items:center;padding:8px;border-radius:8px;background:linear-gradient(180deg,#fff,#fff);border:1px solid #f6efe6}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.full{grid-column:1/-1}
+footer{padding:18px;text-align:center;color:var(--muted);font-size:14px}
+@media(min-width:800px){main{grid-template-columns:2fr 1fr}}
+</style>
 </head>
 <body>
-  <header>
-    <div class="container brand">
-      <div class="logo">TF</div>
-      <div>
-        <h1>Tropical Flow RadioTv Cristiana</h1>
-        <p class="lead">Música cristiana, predicaciones y oración — Dedicado a Dios 🙏</p>
-      </div>
-    </div>
-  </header>  <main class="container">
-    <!-- MAIN LEFT: PLAYER, PRAYER, YOUTUBE -->
-    <section class="card">
-      <h2>Reproductor — En vivo / AutoDJ</h2>
-      <p class="lead">Usa el botón Reproducir para escuchar la transmisión en vivo. Si tienes archivos MP3, súbelos a la lista y úsalos como reproducción local.</p><div class="player">
-    <!-- Streaming audio element; reemplaza STREAM_URL con tu URL de Icecast/AzuraCast/SHOUTcast -->
-    <audio id="stream" controls preload="none">
-      <source id="streamSource" src="https://your-stream-url.example/stream.mp3" type="audio/mpeg">
-      Tu navegador no soporta audio en línea.
-    </audio>
-
-    <div class="controls">
-      <button id="playStream" class="btn">Play Transmisión</button>
-      <button id="stopStream" class="btn secondary">Detener</button>
-      <div style="margin-left:auto;color:var(--muted)">Conectados: <span id="listeners">—</span></div>
-    </div>
-
-    <hr>
-
-    <h3>Playlist local (sube MP3)</h3>
-    <input id="fileInput" type="file" accept="audio/*" multiple>
-    <div class="playlist" id="playlist"></div>
+<header>
+<div class="container brand">
+  <div class="logo">TF</div>
+  <div>
+    <h1>Tropical Flow RadioTv Cristiana</h1>
+    <p class="lead">Música cristiana, predicaciones y oración — Dedicado a Dios 🙏</p>
   </div>
+</div>
+</header>
+
+<main class="container">
+<section class="card">
+<h2>Reproductor — En vivo / AutoDJ</h2>
+<p class="lead">Usa el botón Reproducir para escuchar la transmisión en vivo. La playlist de videos y MP3 funciona automáticamente uno tras otro.</p>
+<div class="player">
+  <!-- STREAMING EN VIVO -->
+  <audio id="stream" controls preload="none">
+    <source id="streamSource" src="https://your-stream-url.example/stream.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio en línea.
+  </audio>
+  <div class="controls">
+    <button id="playStream" class="btn">Play Transmisión</button>
+    <button id="stopStream" class="btn secondary">Detener</button>
+    <div style="margin-left:auto;color:var(--muted)">Conectados: <span id="listeners">—</span></div>
+  </div>
+
+  <hr>
+
+  <!-- PLAYLIST LOCAL MP3 -->
+  <h3>Playlist local (MP3)</h3>
+  <input id="fileInput" type="file" accept="audio/*" multiple>
+  <div class="playlist" id="playlist"></div>
+
+  <hr>
+
+  <!-- PLAYLIST DE VIDEOS -->
+  <h3>Videos (YouTube)</h3>
+  <div id="videoContainer" style="aspect-ratio:16/9;overflow:hidden;border-radius:8px;border:1px solid #efe7d8">
+    <div id="youtubePlayer"></div>
+  </div>
+</div>
 </section>
 
-<!-- RIGHT: DONATE, SCHEDULE, CONTACT -->
 <aside class="card">
-  <h3>Donar / Soporte</h3>
-  <p>Si deseas apoyar la emisora, puedes usar PayPal (cuenta asociada):</p>
-  <!-- PayPal donate button via form (usa correo elegido). Reemplaza si quieres un link diferente -->
-  <form action="https://www.paypal.com/donate" method="post" target="_blank">
-    <!-- PayPal Business email que has elegido en tu memoria -->
-    <input type="hidden" name="business" value="Cartagenajose1970@hotmail.com">
-    <input type="hidden" name="item_name" value="Donación para Tropical Flow RadioTv Cristiana">
-    <input type="hidden" name="currency_code" value="USD">
-    <button type="submit" class="btn">Donar con PayPal</button>
-  </form>
+<h3>Donar / Soporte</h3>
+<form action="https://www.paypal.com/donate" method="post" target="_blank">
+<input type="hidden" name="business" value="Cartagenajose1970@hotmail.com">
+<input type="hidden" name="item_name" value="Donación para Tropical Flow RadioTv Cristiana">
+<input type="hidden" name="currency_code" value="USD">
+<button type="submit" class="btn">Donar con PayPal</button>
+</form>
 
-  <hr>
+<hr>
 
-  <h3>Horarios / Programación</h3>
-  <ul>
-    <li><strong>06:00 - 09:00</strong> — Música de alabanza y oración matutina</li>
-    <li><strong>12:00 - 13:00</strong> — Mensaje del día</li>
-    <li><strong>18:00 - 20:00</strong> — Música cristiana contemporánea</li>
-  </ul>
+<h3>Horarios / Programación</h3>
+<ul>
+<li><strong>06:00 - 09:00</strong> — Música de alabanza y oración matutina</li>
+<li><strong>12:00 - 13:00</strong> — Mensaje del día</li>
+<li><strong>18:00 - 20:00</strong> — Música cristiana contemporánea</li>
+</ul>
 
-  <hr>
+<hr>
 
-  <h3>Contacto</h3>
-  <p>Correo: <a href="mailto:cartajo1970@gmail.com">cartajo1970@gmail.com</a></p>
-  <p>WhatsApp: <a href="https://wa.me/17873133929" target="_blank">+1 787-313-3929</a></p>
+<h3>Contacto</h3>
+<p>Correo: <a href="mailto:cartajo1970@gmail.com">cartajo1970@gmail.com</a></p>
+<p>WhatsApp: <a href="https://wa.me/17873133929" target="_blank">+1 787-313-3929</a></p>
 </aside>
 
-<!-- FULL WIDTH: YouTube embeds + Oración diaria -->
 <section class="card full">
-  <div class="grid">
-    <div>
-      <h3>Canal / Videos en vivo</h3>
-      <p>Canal de YouTube en vivo (si tienes streams en vivo, pega el ID de tu canal o video). Aquí un ejemplo de embed para un video.</p>
-      <!-- Reemplaza el src por tu video en vivo o playlist -->
-      <div style="aspect-ratio:16/9;overflow:hidden;border-radius:8px;border:1px solid #efe7d8">
-        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/A0BUNnIZYwY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      </div>
-    </div>
-
-    <div>
-      <h3>Oración del día</h3>
-      <div style="padding:10px;border-radius:8px;background:linear-gradient(180deg,#fff,#fff);border:1px solid #f6efe6">
-        <h4>Oración de Luz y Paz</h4>
-        <p>Padre amado, hoy vengo delante de Ti con un corazón agradecido. Te pido que derrames Tu luz sobre mí y que sea reflejo de Tu paz para los demás. En el nombre de Jesús, amén.</p>
-        <p style="font-size:13px;color:var(--muted)">Guarda esta oración en tu teléfono y compártela con quien necesite consuelo hoy.</p>
-        <button id="downloadPrayer" class="btn secondary">Descargar imagen</button>
-      </div>
-    </div>
-  </div>
+<div class="grid">
+<div>
+<h3>Oración del día</h3>
+<div style="padding:10px;border-radius:8px;background:linear-gradient(180deg,#fff,#fff);border:1px solid #f6efe6">
+<h4>Oración de Luz y Paz</h4>
+<p>Padre amado, hoy vengo delante de Ti con un corazón agradecido. Te pido que derrames Tu luz sobre mí y que sea reflejo de Tu paz para los demás. En el nombre de Jesús, amén.</p>
+<p style="font-size:13px;color:var(--muted)">Guarda esta oración en tu teléfono y compártela con quien necesite consuelo hoy.</p>
+<button id="downloadPrayer" class="btn secondary">Descargar imagen</button>
+</div>
+</div>
+</div>
 </section>
+</main>
 
-<!-- PODCAST / EPISODIOS -->
-<section class="card full">
-  <h3>Podcast / Episodios</h3>
-  <p>Sube episodios en MP3 para que aparezcan en la lista pública (requiere backend para almacenamiento). De momento puedes arrastrar archivos a la playlist local para reproducirlos.</p>
-  <p style="font-size:13px;color:var(--muted)">Si deseas, puedo preparar también un feed RSS listo para subir al hosting y distribuir en Spotify/Apple Podcasts.</p>
-</section>
+<footer>
+<div class="container">© Tropical Flow RadioTv Cristiana — Dedicado a Dios.</div>
+</footer>
 
-  </main>  <footer>
-    <div class="container">© Tropical Flow RadioTv Cristiana — Dedicado a Dios. Creado con amor. Si quieres que personalice colores, logo o secciones, dime y lo ajusto.</div>
-  </footer>  <script>
-    // Simple JS: control de stream y playlist local
-    const stream = document.getElementById('stream');
-    const playBtn = document.getElementById('playStream');
-    const stopBtn = document.getElementById('stopStream');
-    const listeners = document.getElementById('listeners');
+<!-- YouTube IFrame API -->
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+  // STREAMING
+  const stream=document.getElementById('stream');
+  const playBtn=document.getElementById('playStream');
+  const stopBtn=document.getElementById('stopStream');
+  playBtn.addEventListener('click',()=>stream.play().catch(e=>alert('No se puede reproducir el stream.')));
+  stopBtn.addEventListener('click',()=>{stream.pause();stream.currentTime=0;});
+  document.getElementById('listeners').innerText='—';
 
-    playBtn.addEventListener('click', ()=>{
-      // Si la fuente de streaming falla, el audio fallará. Reemplaza "src" por tu URL real.
-      stream.play().catch(e=>{alert('No se pudo reproducir la transmisión en este dispositivo.\nPuedes probar un navegador diferente o revisar la URL del stream.');});
+  // PLAYLIST LOCAL MP3
+  const fileInput=document.getElementById('fileInput');
+  const playlistEl=document.getElementById('playlist');
+  let localPlayer=new Audio();
+  let tracks=[];
+  let currentTrack=0;
+
+  function renderPlaylist(){
+    playlistEl.innerHTML='';
+    tracks.forEach((t,i)=>{
+      const div=document.createElement('div');
+      div.className='track';
+      div.innerHTML=`<div style="max-width:70%">${t.name}</div><div><button data-i="${i}" class="btn secondary">Reproducir</button></div>`;
+      playlistEl.appendChild(div);
     });
-    stopBtn.addEventListener('click', ()=>{stream.pause(); stream.currentTime = 0});
+  }
 
-    // Simulación simple de contador de oyentes: si tu AzuraCast/icecast expone stats, puedes usar fetch para obtenerlos.
-    listeners.innerText = '—';
+  fileInput.addEventListener('change',e=>{
+    const files=Array.from(e.target.files);
+    files.forEach(f=>tracks.push({name:f.name,url:URL.createObjectURL(f)}));
+    renderPlaylist();
+  });
 
-    // Playlist local (reproduce archivos subidos desde el input)
-    const fileInput = document.getElementById('fileInput');
-    const playlistEl = document.getElementById('playlist');
-    let localPlayer = new Audio();
-    let tracks = [];
+  playlistEl.addEventListener('click',e=>{
+    const btn=e.target.closest('button');
+    if(!btn) return;
+    const i=Number(btn.dataset.i);
+    if(Number.isFinite(i)) playTrack(i);
+  });
 
-    function renderPlaylist(){
-      playlistEl.innerHTML = '';
-      tracks.forEach((t, i) => {
-        const div = document.createElement('div'); div.className = 'track';
-        div.innerHTML = <div style="max-width:70%">${t.name}</div><div><button data-i="${i}" class="btn secondary">Reproducir</button></div>;
-        playlistEl.appendChild(div);
-      });
+  function playTrack(i){
+    currentTrack=i;
+    localPlayer.src=tracks[i].url;
+    localPlayer.play();
+  }
+
+  localPlayer.addEventListener('ended',()=>{
+    currentTrack++;
+    if(currentTrack>=tracks.length) currentTrack=0;
+    if(tracks.length>0) playTrack(currentTrack);
+  });
+
+  // DESCARGAR ORACIÓN
+  document.getElementById('downloadPrayer').addEventListener('click',()=>{
+    const canvas=document.createElement('canvas');
+    canvas.width=1200; canvas.height=1600;
+    const ctx=canvas.getContext('2d');
+    ctx.fillStyle='#fff7ee'; ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle='#3b2f2f'; ctx.textAlign='center';
+    ctx.font='bold 56px serif'; ctx.fillText('Oración de Luz y Paz', canvas.width/2, 110);
+    ctx.font='22px serif';
+    const text='Padre amado, hoy vengo delante de Ti con un corazón agradecido.\nTe pido que derrames Tu luz sobre mí y que sea reflejo de Tu paz para los demás.\nEn el nombre de Jesús, amén.';
+    wrapText(ctx,text,canvas.width/2,180,900,34);
+    const link=document.createElement('a'); link.download='oracion_de_luz_y_paz.png'; link.href=canvas.toDataURL('image/png'); link.click();
+  });
+
+  function wrapText(ctx,text,x,y,maxWidth,lineHeight){
+    const words=text.split(' '); let line='';
+    for(let n=0;n<words.length;n++){
+      const testLine=line+words[n]+' ';
+      const metrics=ctx.measureText(testLine);
+      if(metrics.width>maxWidth && n>0){ctx.fillText(line,x,y);line=words[n]+' ';y+=lineHeight;} else{line=testLine;}
     }
+    ctx.fillText(line,x,y);
+  }
 
-    fileInput.addEventListener('change', (e)=>{
-      const files = Array.from(e.target.files);
-      files.forEach(f=>{
-        const url = URL.createObjectURL(f);
-        tracks.push({name:f.name,url});
-      });
-      renderPlaylist();
+  // VIDEOS YOUTUBE PLAYLIST AUTOMÁTICO
+  let player;
+  const videoPlaylist=["A0BUNnIZYwY","B1CDEF2GH3I","C4HIJK5LM6N"]; // IDs de tus videos
+  let currentVideo=0;
+
+  function onYouTubeIframeAPIReady(){
+    player=new YT.Player('youtubePlayer',{
+      height:'100%',
+      width:'100%',
+      videoId:videoPlaylist[currentVideo],
+      events:{
+        'onReady':e=>e.target.playVideo(),
+        'onStateChange':onPlayerStateChange
+      },
+      playerVars:{autoplay:1, controls:1}
     });
+  }
 
-    playlistEl.addEventListener('click',(e)=>{
-      const btn = e.target.closest('button');
-      if(!btn) return;
-      const i = Number(btn.dataset.i);
-      if(Number.isFinite(i)){
-        localPlayer.src = tracks[i].url;
-        localPlayer.play();
-      }
-    });
-
-    // Descarga de la oración: generamos una imagen simple desde canvas (texto sencillo)
-    document.getElementById('downloadPrayer').addEventListener('click', ()=>{
-      const canvas = document.createElement('canvas');
-      canvas.width = 1200; canvas.height = 1600;
-      const ctx = canvas.getContext('2d');
-      ctx.fillStyle = '#fff7ee'; ctx.fillRect(0,0,canvas.width,canvas.height);
-      ctx.fillStyle = '#3b2f2f'; ctx.textAlign = 'center';
-      ctx.font = 'bold 56px serif'; ctx.fillText('Oración de Luz y Paz', canvas.width/2, 110);
-      ctx.font = '22px serif';
-      const text = 'Padre amado, hoy vengo delante de Ti con un corazón agradecido.\nTe pido que derrames Tu luz sobre mí y que sea reflejo de Tu paz para los demás.\nEn el nombre de Jesús, amén.';
-      wrapText(ctx, text, canvas.width/2, 180, 900, 34);
-      const link = document.createElement('a');
-      link.download = 'oracion_de_luz_y_paz.png';
-      link.href = canvas.toDataURL('image/png');
-      link.click();
-    });
-
-    function wrapText(ctx, text, x, y, maxWidth, lineHeight){
-      const words = text.split(' ');
-      let line = '';
-      for(let n=0;n<words.length;n++){
-        const testLine = line + words[n] + ' ';
-        const metrics = ctx.measureText(testLine);
-        if(metrics.width > maxWidth && n>0){
-          ctx.fillText(line, x, y);
-          line = words[n] + ' ';
-          y += lineHeight;
-        } else {
-          line = testLine;
-        }
-      }
-      ctx.fillText(line, x, y);
+  function onPlayerStateChange(event){
+    if(event.data===YT.PlayerState.ENDED){
+      currentVideo++;
+      if(currentVideo>=videoPlaylist.length) currentVideo=0;
+      player.loadVideoById(videoPlaylist[currentVideo]);
     }
-
-  </script></body>
+  }
+</script>
+</body>
 </html>

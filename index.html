@@ -1,201 +1,288 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Tropical Flow RadioTv Cristiana 📻📺</title>
-  <meta name="description" content="Emisora Tropical Flow RadioTv Cristiana — música, adoración y palabra 24/7.">
-  <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="https://i.imgur.com/1bI8F2P.png">
-  <meta name="theme-color" content="#00bfff">
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tropical Flow RadioTv Cristiana — Música y Palabra 24/7</title>
+  <meta name="description" content="Bienvenidos a Tropical Flow RadioTv Cristiana — Música y Palabra 24/7.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#a8e0ff">
   <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(180deg, #00bfff, #00cc99);
-      color: #fff;
-      text-align: center;
-      overflow-x: hidden;
-      background-size: 200% 200%;
-      animation: gradientBG 12s ease infinite alternate;
+    /* ====== Estilos generales ====== */
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:'Poppins',sans-serif;
+      background: linear-gradient(180deg,#eaf6ff 0%, #cfefff 45%, #f7fbff 100%);
+      color:#123;
+      text-align:center;
+      -webkit-font-smoothing:antialiased;
     }
-    @keyframes gradientBG {
-      0% {background-position: left;}
-      100% {background-position: right;}
+    header{
+      background: rgba(10,40,60,0.08);
+      backdrop-filter: blur(6px);
+      padding:18px 12px;
+      font-size:1.2rem;
+      font-weight:600;
+      color:#013243;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    header .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    header img{width:48px;height:48px;border-radius:10px;object-fit:cover;}
+    header .title{font-size:1.05rem;}
+
+    .container{
+      max-width:980px;
+      margin:20px auto;
+      padding:0 16px;
     }
 
-    /* Fondo de nubes en movimiento */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: url('https://i.imgur.com/2yYyHLL.png') repeat-x;
-      opacity: 0.2;
-      animation: clouds 60s linear infinite;
-      z-index: -1;
+    /* ====== Player / emisora ====== */
+    .player-card{
+      background: rgba(255,255,255,0.9);
+      border-radius:16px;
+      padding:16px;
+      box-shadow:0 8px 20px rgba(10,30,40,0.06);
+      display:flex;
+      gap:16px;
+      align-items:center;
+      justify-content:center;
+      flex-wrap:wrap;
     }
-    @keyframes clouds {
-      from {background-position: 0 0;}
-      to {background-position: -2000px 0;}
+    .player-left{min-width:220px;flex:1;}
+    .player-right{flex:1;min-width:280px;}
+
+    .big-btn{
+      display:inline-block;
+      padding:10px 18px;
+      border-radius:10px;
+      background:#0b72a6;
+      color:#fff;
+      text-decoration:none;
+      font-weight:600;
+      box-shadow:0 6px 12px rgba(11,114,166,0.18);
     }
 
-    header {
-      background: rgba(0,0,0,0.6);
-      padding: 15px;
-      font-size: 1.6em;
-      font-weight: bold;
-      text-shadow: 1px 1px 4px #000;
+    /* iframe de la emisora (embed) */
+    .station-frame{
+      width:100%;
+      height:120px;
+      border-radius:12px;
+      border:0;
+      box-shadow:0 6px 18px rgba(0,0,0,0.06);
     }
-    .radio-player {
-      margin: 25px auto;
-      background: rgba(255,255,255,0.1);
-      padding: 25px;
-      border-radius: 20px;
-      width: 90%;
-      max-width: 420px;
-      box-shadow: 0 0 12px rgba(0,0,0,0.5);
-    }
-    audio {
-      width: 100%;
-      outline: none;
-      border-radius: 10px;
-    }
-    h2 {
-      font-size: 1.4em;
-      margin-bottom: 15px;
-    }
-    .videos {
-      margin: 35px auto;
-      width: 90%;
-      max-width: 720px;
-    }
-    .videos iframe {
-      width: 100%;
-      height: 360px;
-      border-radius: 15px;
-      margin-bottom: 15px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.5);
-    }
-    footer {
-      background: rgba(0,0,0,0.6);
-      padding: 20px;
-      margin-top: 20px;
-      font-size: 0.95em;
-    }
-    .social a {
-      margin: 0 12px;
-      color: #fff;
-      font-weight: bold;
-      text-decoration: none;
-      font-size: 1.1em;
-      transition: 0.3s;
-    }
-    .social a:hover {
-      color: #ffd700;
-    }
-    .paypal-button {
-      background: #ffd700;
-      color: #000;
-      padding: 10px 25px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: bold;
-      display: inline-block;
-      margin-top: 10px;
-      transition: 0.3s;
-    }
-    .paypal-button:hover {
-      background: #fff;
+    audio#nativeRadio{
+      width:100%;
+      outline:none;
+      margin-top:8px;
     }
 
-    /* Botón flotante */
-    #playButton {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      background: #ffd700;
-      color: #000;
-      border: none;
-      border-radius: 50%;
-      width: 70px;
-      height: 70px;
-      font-size: 28px;
-      font-weight: bold;
-      box-shadow: 0 0 15px rgba(0,0,0,0.5);
-      cursor: pointer;
-      z-index: 10;
-      transition: transform 0.3s;
+    /* ====== Carrusel de videos ====== */
+    .carousel{
+      margin-top:22px;
+      background: rgba(255,255,255,0.95);
+      padding:14px;
+      border-radius:14px;
+      box-shadow:0 8px 20px rgba(10,30,40,0.05);
     }
-    #playButton:hover {
-      transform: scale(1.1);
+    .carousel iframe{
+      width:100%;
+      aspect-ratio:16/9;
+      border-radius:10px;
+      border:0;
+    }
+    .carousel-controls{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-top:10px;
+      gap:10px;
+    }
+    .dots{display:flex;gap:8px;justify-content:center;margin-top:10px;}
+    .dot{width:10px;height:10px;border-radius:50%;background:#d0e8fb;cursor:pointer;opacity:0.6}
+    .dot.active{background:#0b72a6;opacity:1}
+
+    /* ====== Footer ====== */
+    footer{
+      margin-top:26px;
+      padding:18px;
+      color:#013243;
+      font-size:0.92rem;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .social a{margin:0 8px;color:#0b72a6;text-decoration:none;font-weight:600}
+    .donate{
+      background:#ffd85a;
+      color:#0b2b3a;
+      padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;
+      box-shadow:0 6px 12px rgba(0,0,0,0.06);
     }
 
-    @media (max-width:600px){
-      h2{font-size:1.2em;}
-      .videos iframe{height:250px;}
-      #playButton{width:60px; height:60px; font-size:24px;}
+    @media (max-width:720px){
+      header{flex-direction:column;align-items:flex-start;gap:8px}
+      .player-card{flex-direction:column;align-items:stretch}
+      footer{flex-direction:column;align-items:flex-start}
     }
   </style>
 </head>
 <body>
   <header>
-    🌴 Tropical Flow RadioTv Cristiana 📻
+    <div class="brand">
+      <!-- pequeño logo (puedes reemplazar con tu imagen) -->
+      <img src="https://i.imgur.com/1bI8F2P.png" alt="TropicalFlowTV">
+      <div>
+        <div class="title">🌤 Bienvenidos a Tropical Flow RadioTv Cristiana</div>
+        <div style="font-size:.86rem;color:#23627a;margin-top:4px">Música y Palabra 24/7 — Amor, adoración y esperanza</div>
+      </div>
+    </div>
+    <div>
+      <a class="big-btn" href="#player" onclick="document.getElementById('nativeRadio').scrollIntoView({behavior:'smooth'})">Escuchar Ahora ▶</a>
+    </div>
   </header>
 
-  <section class="radio-player">
-    <h2>🎧 Escúchanos en Vivo</h2>
-    <audio id="radio" autoplay>
-      <source src="http://tropicalflowtv.radiostream321.com/" type="audio/mpeg">
-      Tu navegador no soporta el audio en vivo.
-    </audio>
-    <p>Transmitiendo fe, esperanza y adoración 24/7 🌟</p>
-  </section>
+  <main class="container">
+    <!-- ====== Tarjeta del Player ====== -->
+    <section id="player" class="player-card" aria-label="Reproductor en vivo">
+      <div class="player-left">
+        <h3 style="margin:6px 0 4px;color:#013243">🎧 Emisora principal (Radio Nueva Vida)</h3>
+        <!-- EMBED de la emisora escogida: uso la página oficial de "Escucha en vivo" (si el navegador permite el embed) -->
+        <!-- Si prefieres un stream mp3 directo, lo cambiamos aquí por la URL directa -->
+        <iframe class="station-frame" src="https://nuevavida.com/escucha-en-vivo/" title="Radio Nueva Vida - Escucha en vivo"></iframe>
 
-  <section class="videos">
-    <h2>📺 Videos Cristianos en Vivo</h2>
-    <iframe src="https://www.youtube.com/embed/Sl8vwKye0XI" allowfullscreen></iframe>
-    <iframe src="https://www.youtube.com/embed/3Uo0JAUWijM" allowfullscreen></iframe>
-    <iframe src="https://www.youtube.com/embed/B8-6v1W1iN8" allowfullscreen></iframe>
-  </section>
+        <p style="margin-top:8px;font-size:0.92rem;color:#235d74">Si por alguna razón no carga el embed, abajo tienes el reproductor nativo (fallback) que usará tu stream.</p>
+      </div>
+
+      <div class="player-right">
+        <h3 style="margin:6px 0 4px;color:#013243">🔊 Reproductor alterno</h3>
+
+        <!-- Reproductor nativo con fallback a tu propio stream -->
+        <audio id="nativeRadio" controls preload="none">
+          <!-- URL alternativa (tu stream) -->
+          <source src="http://tropicalflowtv.radiostream321.com/" type="audio/mpeg">
+          Tu navegador no soporta audio en vivo.
+        </audio>
+
+        <p style="margin-top:8px;font-size:0.9rem;color:#1b6b86">Transmitiendo fe, esperanza y adoración — si quieres cambiar la emisora aquí pon la URL directa del stream.</p>
+      </div>
+    </section>
+
+    <!-- ====== Carrusel automático de videos (adoración moderna) ====== -->
+    <section class="carousel" aria-label="Videos de adoración">
+      <h3 style="margin:6px 0 10px;color:#013243">📺 Videos de adoración</h3>
+
+      <!-- iframe donde se cargan los videos del carrusel -->
+      <div id="videoWrap">
+        <iframe id="videoFrame" src="https://www.youtube.com/embed/3Uo0JAUWijM?rel=0&showinfo=0&modestbranding=1" title="Video de adoración" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+
+      <div class="carousel-controls">
+        <div style="font-size:.95rem;color:#235d74">Ahora reproduciendo: <span id="videoTitle">"What a Beautiful Name" — Hillsong</span></div>
+        <div>
+          <button onclick="prevVideo()" style="margin-right:8px;padding:8px 12px;border-radius:8px;border:0;background:#e6f7ff;font-weight:700;cursor:pointer">◀</button>
+          <button onclick="nextVideo()" style="padding:8px 12px;border-radius:8px;border:0;background:#e6f7ff;font-weight:700;cursor:pointer">▶</button>
+        </div>
+      </div>
+
+      <div class="dots" id="dotsContainer" aria-hidden="false"></div>
+    </section>
+  </main>
 
   <footer>
-    <div class="social">
-      <a href="https://wa.me/17873133929" target="_blank">📱 WhatsApp</a>
-      <a href="https://www.youtube.com/@tropicalflowtv" target="_blank">▶ YouTube</a>
-      <a href="https://www.facebook.com/tropicalflowtv" target="_blank">📘 Facebook</a>
+    <div>
+      <strong>© 2025 Tropical Flow RadioTv Cristiana</strong>
+      <div style="font-size:.86rem;color:#2a6b88">Que la paz y la adoración te acompañen hoy.</div>
     </div>
-    <a class="paypal-button" href="https://www.paypal.com/donate/?business=Cartagenajose1970@hotmail.com" target="_blank">💝 Donar con PayPal</a>
-    <p style="margin-top:15px;">© 2025 Tropical Flow RadioTv Cristiana — Todos los derechos reservados</p>
+
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <div class="social">
+        <a href="https://wa.me/17873133929" target="_blank" rel="noopener">📱 WhatsApp</a>
+        <a href="https://www.youtube.com/@tropicalflowtv" target="_blank" rel="noopener">▶ YouTube</a>
+        <a href="https://www.facebook.com/tropicalflowtv" target="_blank" rel="noopener">📘 Facebook</a>
+      </div>
+      <a class="donate" href="https://www.paypal.com/donate/?business=Cartagenajose1970@hotmail.com" target="_blank" rel="noopener">💝 Donar con PayPal</a>
+    </div>
   </footer>
 
-  <!-- Botón flotante -->
-  <button id="playButton">⏸</button>
-
+  <!-- ====== Scripts: carrusel y control ====== -->
   <script>
-    const audio = document.getElementById('radio');
-    const playButton = document.getElementById('playButton');
-    let isPlaying = true;
+    // Lista de videos (puedes cambiar los IDs por los que prefieras)
+    const videos = [
+      {id: '3Uo0JAUWijM', title: 'What a Beautiful Name — Hillsong'},
+      {id: 'Sl8vwKye0XI', title: 'Oceans (Where Feet May Fail) — Hillsong UNITED'},
+      {id: 'DyDfgMOUjCI', title: '10,000 Reasons — Matt Redman'},
+      {id: 'hT_nvWreIhg', title: 'How He Loves — David Crowder Band'},
+      {id: 'B8-6v1W1iN8', title: 'Reckless Love — Cory Asbury'}
+    ];
 
-    playButton.addEventListener('click', () => {
-      if (isPlaying) {
-        audio.pause();
-        playButton.textContent = '▶';
-      } else {
-        audio.play();
-        playButton.textContent = '⏸';
-      }
-      isPlaying = !isPlaying;
+    let current = 0;
+    const frame = document.getElementById('videoFrame');
+    const titleEl = document.getElementById('videoTitle');
+    const dotsContainer = document.getElementById('dotsContainer');
+
+    // Crear dots
+    videos.forEach((v,i)=>{
+      const d = document.createElement('div');
+      d.className='dot'+(i===0?' active':'');
+      d.dataset.i = i;
+      d.addEventListener('click', ()=> { goTo(i); });
+      dotsContainer.appendChild(d);
     });
 
-    // Registrar PWA
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js')
-      .then(() => console.log("PWA activa ✅"))
-      .catch(err => console.log("Error:", err));
+    function loadVideo(i){
+      const vid = videos[i];
+      frame.src = https://www.youtube.com/embed/${vid.id}?rel=0&autoplay=1&mute=0&showinfo=0&modestbranding=1;
+      titleEl.textContent = vid.title;
+      // actualizar dots
+      const dots = document.querySelectorAll('.dot');
+      dots.forEach((dot, idx)=> dot.classList.toggle('active', idx===i));
     }
+
+    function nextVideo(){
+      current = (current + 1) % videos.length;
+      loadVideo(current);
+      resetTimer();
+    }
+    function prevVideo(){
+      current = (current - 1 + videos.length) % videos.length;
+      loadVideo(current);
+      resetTimer();
+    }
+    function goTo(i){
+      current = i;
+      loadVideo(current);
+      resetTimer();
+    }
+
+    // autoplay carousel cada 18 segundos
+    let carouselTimer = setInterval(nextVideo, 18000);
+    function resetTimer(){
+      clearInterval(carouselTimer);
+      carouselTimer = setInterval(nextVideo, 18000);
+    }
+
+    // cargar video inicial (sin esperar)
+    loadVideo(0);
+
+    // Mejora UX: intenta reproducir el audio nativo si el usuario interactúa (políticas de autoplay)
+    document.addEventListener('click', function oncePlay() {
+      const audio = document.getElementById('nativeRadio');
+      if (audio && audio.paused) {
+        // intenta play; si falla por política de autoplay, el usuario ya dio click así que funcionará.
+        audio.play().catch(()=>{/* no romper si bloquea */});
+      }
+      document.removeEventListener('click', oncePlay);
+    });
   </script>
 </body>
-</html>
+</html>you

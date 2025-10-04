@@ -138,17 +138,27 @@
 </head>
 <body>
   <header>
-    <div class="brand">
-      <img src="https://i.imgur.com/1bI8F2P.png" alt="TropicalFlowTV">
-      <div>
-        <div class="title">🌤 Bienvenidos a Tropical Flow RadioTv Cristiana</div>
-        <div style="font-size:.86rem;color:#23627a;margin-top:4px">Música y Palabra 24/7 — Amor, adoración y esperanza</div>
+  <div class="brand" style="align-items:center;gap:12px">
+    <!-- Logo más grande y visible -->
+    <img src="https://i.imgur.com/1bI8F2P.png" alt="TropicalFlowTV" style="width:64px;height:64px;object-fit:cover;border-radius:12px;">
+
+    <div style="text-align:left">
+      <div class="title" style="font-size:1.3rem; font-weight:700; color:#013243; line-height:1.2">
+        🌤 Bienvenidos a Tropical Flow RadioTv Cristiana
+      </div>
+      <div style="font-size:0.95rem; color:#0b72a6; margin-top:4px; line-height:1.3">
+        Música y Palabra 24/7 — Amor, adoración y esperanza
       </div>
     </div>
-    <div>
-      <a class="big-btn" href="#player" onclick="document.getElementById('nativeRadio').scrollIntoView({behavior:'smooth'})">Escuchar Ahora ▶</a>
-    </div>
-  </header>
+  </div>
+
+  <div>
+    <a class="big-btn" href="#player" onclick="document.getElementById('nativeRadio').scrollIntoView({behavior:'smooth'})">
+      Escuchar Ahora ▶
+    </a>
+  </div>
+</header>
+
 
   <main class="container">
     <!-- ====== Tarjeta del Player ====== -->

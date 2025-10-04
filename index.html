@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tropical Flow RadioTv Cristiana - Profesional</title>
-<meta name="description" content="Tropical Flow RadioTv Cristiana — Música, videos y mensajes para honrar a Dios.">
+<title>Tropical Flow RadioTv Cristiana — Automático</title>
+<meta name="description" content="Radio cristiana automática con MP3 de servidor, videos de YouTube y transmisión en vivo.">
 <style>
 :root{--bg:#fffaf0;--accent:#2b6cb0;--muted:#6b7280;--card:#ffffff}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -28,6 +28,8 @@ main{display:grid;grid-template-columns:1fr;gap:18px;margin-top:18px}
 footer{padding:18px;text-align:center;color:var(--muted);font-size:14px}
 .floating-controls{position:fixed;bottom:20px;right:20px;background:rgba(43,108,176,0.9);padding:10px 14px;border-radius:12px;display:flex;gap:10px;z-index:999;}
 .floating-controls button{padding:8px 12px;font-size:14px;}
+.floating-next{position:fixed;bottom:90px;right:20px;background:rgba(255,255,255,0.95);padding:10px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.2);max-width:220px;font-size:14px;z-index:998;}
+.floating-next h4{margin-bottom:6px;font-size:16px;color:var(--accent);}
 @media(min-width:800px){main{grid-template-columns:2fr 1fr}}
 </style>
 </head>
@@ -38,14 +40,14 @@ footer{padding:18px;text-align:center;color:var(--muted);font-size:14px}
   <div class="logo">TF</div>
   <div>
     <h1>Tropical Flow RadioTv Cristiana</h1>
-    <p class="lead">Música cristiana, predicaciones y oración — Dedicado a Dios 🙏</p>
+    <p class="lead">Automático — Música y mensajes para honrar a Dios 🙏</p>
   </div>
 </div>
 </header>
 
 <main class="container">
 <section class="card">
-<h2>Reproductor Profesional — MP3 + Videos + En Vivo</h2>
+<h2>Reproductor Automático — MP3 + Videos + En Vivo</h2>
 <div class="player">
   <!-- STREAMING EN VIVO -->
   <audio id="stream" preload="none">
@@ -60,19 +62,10 @@ footer{padding:18px;text-align:center;color:var(--muted);font-size:14px}
 
   <hr>
 
-  <!-- PLAYLIST LOCAL MP3 -->
-  <h3>Playlist MP3</h3>
-  <input id="fileInput" type="file" accept="audio/*" multiple>
-  <div class="playlist" id="playlistMP3"></div>
-
-  <hr>
-
-  <!-- PLAYLIST VIDEOS -->
   <h3>Videos YouTube</h3>
   <div id="videoContainer" style="aspect-ratio:16/9;overflow:hidden;border-radius:8px;border:1px solid #efe7d8">
     <div id="youtubePlayer"></div>
   </div>
-
 </div>
 </section>
 
@@ -102,10 +95,15 @@ footer{padding:18px;text-align:center;color:var(--muted);font-size:14px}
 </aside>
 </main>
 
-<!-- CONTROLES FLOTANTES -->
 <div class="floating-controls">
   <button id="btnPlayPause">Play/Pause</button>
   <button id="btnNext">Siguiente</button>
+  <button id="btnMute">Mute/Unmute</button>
+</div>
+
+<div class="floating-next">
+  <h4>Próximos en la cola</h4>
+  <ul id="nextQueue" style="list-style:none;padding-left:0;margin:0;"></ul>
 </div>
 
 <footer>
@@ -123,55 +121,35 @@ playBtn.addEventListener('click',()=>stream.play().catch(()=>alert('No se puede 
 stopBtn.addEventListener('click',()=>{stream.pause();stream.currentTime=0;});
 listeners.innerText='—';
 
-async function updateListeners(){
-  try{
-    const resp=await fetch('https://your-stream-url.example/status-json.xsl');
-    const data=await resp.json();
-    listeners.innerText=data.icestats.source[0].listeners || '—';
-  }catch{listeners.innerText='—';}
-}
-setInterval(updateListeners,15000);
-updateListeners();
-
-// MP3 LOCAL
-const fileInput=document.getElementById('fileInput');
-const playlistEl=document.getElementById('playlistMP3');
+// MP3 automáticos desde carpeta /mp3/
 let mp3Tracks=[];
-let videoTracks=["A0BUNnIZYwY","B1CDEF2GH3I"]; // IDs de YouTube
-let currentIndex=parseInt(localStorage.getItem('currentIndex'))||0;
-let currentType=localStorage.getItem('currentType')||'mp3';
+async function loadMP3Tracks(){
+  try{
+    const resp=await fetch('mp3/list.json'); // genera un list.json con todos tus MP3
+    mp3Tracks=await resp.json(); // formato: [{name:"Cancion1.mp3",url:"mp3/Cancion1.mp3"},...]
+    renderNextQueue();
+  }catch(e){console.log("No se pudo cargar MP3:",e);}
+}
+
+const videoTracks=["A0BUNnIZYwY","B1CDEF2GH3I"];
+let currentIndex=0;
+let currentType='mp3';
 let localPlayer=new Audio();
 let player;
 let isPlayingVideo=false;
+const nextQueueEl=document.getElementById('nextQueue');
 
-function renderMP3Playlist(){
-  playlistEl.innerHTML='';
-  mp3Tracks.forEach((t,i)=>{
-    const div=document.createElement('div');
-    div.className='track';
-    div.innerHTML=`<div style="max-width:70%">${t.name}</div><div><button data-i="${i}" class="btn secondary">Reproducir</button></div>`;
-    playlistEl.appendChild(div);
-  });
+function renderNextQueue(){
+  nextQueueEl.innerHTML='';
+  let nextList=[];
+  if(currentType==='mp3'){nextList=mp3Tracks.slice(currentIndex+1).map(t=>t.name).concat(videoTracks.map(v=>'Video: '+v));}
+  else{nextList=videoTracks.slice(currentIndex+1).map(v=>'Video: '+v).concat(mp3Tracks.map(t=>t.name));}
+  nextList.forEach(item=>{const li=document.createElement('li');li.textContent=item;nextQueueEl.appendChild(li);});
 }
-
-fileInput.addEventListener('change',e=>{
-  const files=Array.from(e.target.files);
-  files.forEach(f=>mp3Tracks.push({name:f.name,url:URL.createObjectURL(f)}));
-  renderMP3Playlist();
-});
-
-playlistEl.addEventListener('click',e=>{
-  const btn=e.target.closest('button');
-  if(!btn) return;
-  const i=Number(btn.dataset.i);
-  if(Number.isFinite(i)) playMedia(i,'mp3');
-});
 
 function playMedia(index,type){
   currentIndex=index;
   currentType=type;
-  localStorage.setItem('currentIndex',currentIndex);
-  localStorage.setItem('currentType',currentType);
   if(type==='mp3'){
     isPlayingVideo=false;
     player && player.pauseVideo && player.pauseVideo();
@@ -184,14 +162,13 @@ function playMedia(index,type){
     player.mute();
     setTimeout(()=>player.unMute(),500);
   }
+  renderNextQueue();
 }
 
 function nextMedia(){
   if(currentType==='mp3'){
     currentIndex++;
-    if(currentIndex>=mp3Tracks.length){
-      if(videoTracks.length>0){currentType='video';currentIndex=0;}else{currentIndex=0;}
-    }
+    if(currentIndex>=mp3Tracks.length){if(videoTracks.length>0){currentType='video';currentIndex=0;}else{currentIndex=0;}}
     playMedia(currentIndex,currentType);
   }else{
     currentIndex++;
@@ -202,35 +179,25 @@ function nextMedia(){
 
 localPlayer.addEventListener('ended',()=>nextMedia());
 
-// CONTROLES FLOTANTES
 document.getElementById('btnPlayPause').addEventListener('click',()=>{
-  if(isPlayingVideo){
-    const state=player.getPlayerState();
-    if(state===YT.PlayerState.PLAYING) player.pauseVideo(); else player.playVideo();
-  }else{
-    if(localPlayer.paused) localPlayer.play(); else localPlayer.pause();
-  }
+  if(isPlayingVideo){const state=player.getPlayerState();if(state===YT.PlayerState.PLAYING) player.pauseVideo(); else player.playVideo();}
+  else{if(localPlayer.paused) localPlayer.play(); else localPlayer.pause();}
+});
+document.getElementById('btnNext').addEventListener('click',()=>nextMedia());
+document.getElementById('btnMute').addEventListener('click',()=>{
+  if(isPlayingVideo){player.isMuted()?player.unMute():player.mute();}
+  else{localPlayer.muted=!localPlayer.muted;}
 });
 
-document.getElementById('btnNext').addEventListener('click',()=>nextMedia());
-
-// YOUTUBE PLAYER
 function onYouTubeIframeAPIReady(){
   player=new YT.Player('youtubePlayer',{
-    height:'100%',
-    width:'100%',
-    videoId:videoTracks[0],
-    playerVars:{autoplay:1,controls:1,mute:1},
-    events:{'onReady':()=>{playMedia(currentIndex,currentType)},'onStateChange':onVideoStateChange}
+    height:'100%',width:'100%',videoId:videoTracks[0],
+    playerVars:{autoplay:1,controls:1,rel:0,showinfo:0},
+    events:{'onReady':()=>playMedia(0,'mp3'),'onStateChange':event=>{if(event.data===YT.PlayerState.ENDED) nextMedia();}}
   });
 }
 
-function onVideoStateChange(event){
-  if(event.data===YT.PlayerState.ENDED) nextMedia();
-}
-
-// AUTOPLAY INICIAL
-window.addEventListener('load',()=>{playMedia(currentIndex,currentType)});
+loadMP3Tracks();
 </script>
 </body>
 </html>

@@ -194,9 +194,9 @@ footer{padding:18px;text-align:center;color:var(--muted);font-size:14px}
     ctx.fillText(line,x,y);
   }
 
-  // VIDEOS YOUTUBE PLAYLIST AUTOMÁTICO
+  // VIDEOS YOUTUBE PLAYLIST AUTOMÁTICO ESCALABLE
   let player;
-  const videoPlaylist=["A0BUNnIZYwY","B1CDEF2GH3I","C4HIJK5LM6N"]; // IDs de tus videos
+  let videoPlaylist=["A0BUNnIZYwY","B1CDEF2GH3I","C4HIJK5LM6N"]; // <-- Aquí agrega los IDs de todos tus videos
   let currentVideo=0;
 
   function onYouTubeIframeAPIReady(){
@@ -204,12 +204,14 @@ footer{padding:18px;text-align:center;color:var(--muted);font-size:14px}
       height:'100%',
       width:'100%',
       videoId:videoPlaylist[currentVideo],
-      events:{
-        'onReady':e=>e.target.playVideo(),
-        'onStateChange':onPlayerStateChange
-      },
-      playerVars:{autoplay:1, controls:1}
+      playerVars:{autoplay:1, controls:1, mute:1},
+      events:{'onReady':onPlayerReady,'onStateChange':onPlayerStateChange}
     });
+  }
+
+  function onPlayerReady(event){
+    event.target.playVideo();
+    setTimeout(()=>event.target.unMute(),1000);
   }
 
   function onPlayerStateChange(event){
@@ -217,6 +219,8 @@ footer{padding:18px;text-align:center;color:var(--muted);font-size:14px}
       currentVideo++;
       if(currentVideo>=videoPlaylist.length) currentVideo=0;
       player.loadVideoById(videoPlaylist[currentVideo]);
+      player.mute();
+      setTimeout(()=>player.unMute(),1000);
     }
   }
 </script>

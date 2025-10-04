@@ -1,247 +1,224 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Tropical Flow RadioTv Cristiana — Música y Palabra 24/7</title>
-<meta name="description" content="Bienvenidos a Tropical Flow RadioTv Cristiana — Música y Palabra 24/7.">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-<meta name="theme-color" content="#a8e0ff">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tropical Flow TV 📺 Radio Cristiana</title>
+<meta name="description" content="Tropical Flow TV Radio Cristiana — Música y Palabra 24/7.">
+
 <style>
+  :root{
+    --accent:#00e0ff; --accent2:#2dd4bf; --warn:#fbbf24;
+    --glass:rgba(0,0,0,.62); --panel:rgba(255,255,255,.08);
+    --card:rgba(0,0,0,.60); --maxw:1100px;
+  }
   *{box-sizing:border-box}
+  html,body{margin:0}
   body{
-    margin:0;
-    font-family:'Poppins',sans-serif;
-    background: linear-gradient(180deg,#eaf6ff 0%, #cfefff 45%, #f7fbff 100%);
-    color:#123;
-    text-align:center;
-    -webkit-font-smoothing:antialiased;
-  }
-  header{
-    background: rgba(10,40,60,0.08);
-    backdrop-filter: blur(6px);
-    padding:18px 12px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:12px;
-  }
-  header .brand{
-    display:flex;
-    align-items:center;
-    gap:12px;
-  }
-  header img{width:64px;height:64px;border-radius:12px;object-fit:cover;}
-  .title{font-size:1.3rem;font-weight:700;color:#013243;line-height:1.2;}
-  .subtitle{font-size:0.95rem;color:#0b72a6;line-height:1.3;}
-
-  .social-bar{
-    display:flex;
-    gap:12px;
-    flex-wrap:wrap;
-    justify-content:center;
-    margin-top:6px;
-  }
-  .social-bar a{
-    text-decoration:none;
-    font-weight:600;
-    color:#0b72a6;
-    background: #e6f7ff;
-    padding:6px 10px;
-    border-radius:8px;
-    box-shadow:0 4px 8px rgba(0,0,0,0.06);
-  }
-  .donate{
-    background:#ffd85a !important;
-    color:#0b2b3a !important;
-    padding:6px 10px;
-    border-radius:8px;
-    text-decoration:none;
-    font-weight:700;
-    box-shadow:0 4px 8px rgba(0,0,0,0.06);
-  }
-
-  .big-btn{
-    display:inline-block;
-    padding:10px 18px;
-    border-radius:10px;
-    background:#0b72a6;
     color:#fff;
-    text-decoration:none;
-    font-weight:600;
-    box-shadow:0 6px 12px rgba(11,114,166,0.18);
-    margin-top:8px;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,Helvetica,sans-serif;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.80)),
+      url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1920&auto=format&fit=crop")
+      center/cover fixed no-repeat;
   }
+  .bg-mark{
+    position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.06;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:900; letter-spacing:.08em; text-transform:uppercase;
+    font-size:clamp(38px,10vw,120px);
+  }
+  header, footer{ position:relative; z-index:2; text-align:center; padding:14px; background:rgba(0,0,0,.5) }
+  h1{ margin:0; font-size:clamp(22px,3.4vw,36px) }
 
-  .container{
-    max-width:980px;
-    margin:20px auto;
-    padding:0 16px;
+  /* Barra social superior */
+  .top-social{
+    position:relative; z-index:2;
+    background:rgba(0,0,0,.6);
+    padding:10px 12px;
   }
+  .social{
+    max-width:var(--maxw);
+    margin:0 auto;
+    display:flex; flex-wrap:wrap; gap:10px; justify-content:center;
+  }
+  .social a{
+    text-decoration:none; color:#fff; padding:.55rem .9rem; border-radius:10px; font-weight:800;
+    background:#444; display:inline-flex; align-items:center; gap:.5rem; border:1px solid rgba(255,255,255,.15);
+  }
+  .whatsapp{ background:#25d366 } .youtube{ background:#FF0000 }
+  .facebook{ background:#3b5998 } .paypal{ background:#0070ba } .athmovil{ background:#6f42c1 }
 
-  .player-card{
-    background: rgba(255,255,255,0.9);
-    border-radius:16px;
-    padding:16px;
-    box-shadow:0 8px 20px rgba(10,30,40,0.06);
-    display:flex;
-    gap:16px;
-    align-items:center;
-    justify-content:center;
-    flex-wrap:wrap;
-    margin-top:14px;
-  }
-  .player-left{min-width:220px;flex:1;}
-  .player-right{flex:1;min-width:280px;}
-  .station-frame{width:100%;height:120px;border-radius:12px;border:0;box-shadow:0 6px 18px rgba(0,0,0,0.06);}
-  audio#nativeRadio{width:100%;outline:none;margin-top:8px;}
+  .wrap{ position:relative; z-index:1; max-width:var(--maxw); margin:16px auto; padding:16px; background:var(--glass); border-radius:16px }
+  section{ margin:18px 0; padding:16px; background:var(--panel); border-radius:14px }
+  h2{ margin:0 0 12px; text-align:center }
 
-  .carousel{
-    margin-top:22px;
-    background: rgba(255,255,255,0.95);
-    padding:14px;
-    border-radius:14px;
-    box-shadow:0 8px 20px rgba(10,30,40,0.05);
-  }
-  .carousel iframe{width:100%;aspect-ratio:16/9;border-radius:10px;border:0;}
-  .carousel-controls{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-top:10px;
-    gap:10px;
-    flex-wrap:wrap;
-  }
-  .dots{display:flex;gap:8px;justify-content:center;margin-top:10px;}
-  .dot{width:10px;height:10px;border-radius:50%;background:#d0e8fb;cursor:pointer;opacity:0.6}
-  .dot.active{background:#0b72a6;opacity:1}
+  .btn{background:var(--accent);color:#000;border:0;border-radius:12px;font-weight:800;padding:10px 14px;cursor:pointer}
+  .btn.alt{background:var(--accent2)}
+  .btn.warn{background:var(--warn);color:#000}
+  .controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:10px}
 
-  footer{
-    text-align:center;
-    margin-top:40px;
-    padding:18px;
-    color:#013243;
-    font-size:0.92rem;
-  }
+  /* RADIO */
+  #radioCard{position:relative;max-width:950px;margin:0 auto;padding:14px;border-radius:14px;background:var(--card);backdrop-filter:blur(4px)}
+  #radioViewport{position:relative;display:none;border-radius:14px;overflow:hidden;background:#000}
+  #radioViewport .viewport{position:relative;width:100%;padding-top:52%}
+  #radioFrame{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+  #radioMini{display:flex;gap:10px;justify-content:center;align-items:center}
+  .hint{color:#bbb;font-size:.9rem;text-align:center;margin-top:8px}
+  @media (max-width:900px){ #radioViewport .viewport{ padding-top:56% } }
+  @media (max-width:700px){ #radioViewport .viewport{ padding-top:62% } }
+  @media (max-width:540px){ #radioViewport .viewport{ padding-top:68% } }
 
-  @media (max-width:720px){
-    .player-card{flex-direction:column;align-items:stretch}
-  }
+  /* PLAYLIST */
+  audio{width:100%;max-width:720px;margin:8px auto;display:block;border-radius:12px}
+  .plist{list-style:none;margin:10px auto 0;max-width:900px;padding:0;max-height:340px;overflow:auto}
+  .plist li{padding:8px 10px;border-radius:10px;cursor:pointer}
+  .plist li.active{background:rgba(0,191,255,.28)}
+  .status{margin-top:8px;color:#7CFC00;text-align:center}
+  .status.warn{color:#ffd166}
+  .plist::-webkit-scrollbar{width:10px}
+  .plist::-webkit-scrollbar-track{background:rgba(255,255,255,.08);border-radius:10px}
+  .plist::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--accent),#00bcd4);border-radius:10px}
+  .plist{scrollbar-width:thin;scrollbar-color:#00bcd4 rgba(255,255,255,.08)}
+
+  /* VIDEO */
+  .ratio16x9{position:relative;padding-top:56.25%}
+  .fill{position:absolute;inset:0}
+
+  /* THUMB STRIP */
+  .thumbStrip{max-width:var(--maxw);margin:10px auto 0;padding:10px;display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory}
+  .thumb{position:relative;flex:0 0 auto;width:210px;border-radius:12px;overflow:hidden;scroll-snap-align:start;box-shadow:0 8px 22px rgba(0,0,0,.35);cursor:pointer}
+  .thumb img{display:block;width:100%;filter:brightness(.9);transition:transform .18s ease, filter .18s ease}
+  .thumb:hover img{transform:scale(1.03);filter:brightness(1)}
+  .thumb.active{outline:3px solid var(--accent);outline-offset:-3px}
+  .playOverlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(transparent,rgba(0,0,0,.32))}
+  .playBtn{width:54px;height:54px;border-radius:50%;background:rgba(0,0,0,.66);border:2px solid rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center}
+  .playBtn:before{content:"";border-left:18px solid #fff;border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:4px}
 </style>
+
+<script src="https://www.youtube.com/iframe_api"></script>
 </head>
 <body>
+<div class="bg-mark">Tropical Flow RadioTV</div>
 
 <header>
-  <div class="brand">
-    <img src="https://i.ibb.co/3z7hP7R/tropical-logo.png" alt="TropicalFlowTV">
-    <div style="text-align:left">
-      <div class="title">🌤 Bienvenidos a Tropical Flow RadioTv Cristiana</div>
-      <div class="subtitle">Música y Palabra 24/7 — Amor, adoración y esperanza</div>
-    </div>
-  </div>
-
-  <div class="social-bar">
-    <a href="https://wa.me/19399029695" target="_blank" rel="noopener">📱 WhatsApp</a>
-    <a href="https://www.youtube.com/@tropicalflowtv" target="_blank" rel="noopener">▶ YouTube</a>
-    <a href="https://www.facebook.com/tropicalflowtv" target="_blank" rel="noopener">📘 Facebook</a>
-    <a class="donate" href="https://www.paypal.com/donate/?business=Cartagenajose1970@hotmail.com" target="_blank" rel="noopener">💝 Donar con PayPal</a>
-  </div>
-
-  <a class="big-btn" href="#player" onclick="document.getElementById('nativeRadio').scrollIntoView({behavior:'smooth'})">
-    Escuchar Ahora ▶
-  </a>
+  <img src="https://i.ibb.co/qkB0dKk/tropicalflow-logo.png" alt="Tropical Flow RadioTv Cristiana" style="max-height:80px;margin-bottom:6px;">
+  <h1>🌴 Tropical Flow TV 📺 Radio Cristiana</h1>
 </header>
 
-<main class="container">
+<!-- Barra social -->
+<div class="top-social">
+  <div class="social">
+    <a class="whatsapp" href="https://wa.me/19399029695" target="_blank">WhatsApp</a>
+    <a class="youtube"  href="https://www.youtube.com/@TFTvpoweredbyworldm8780" target="_blank">YouTube</a>
+    <a class="facebook" href="https://www.facebook.com/profile.php?id=61555653663073" target="_blank">Facebook</a>
+    <a class="paypal"   href="https://www.paypal.com/donate/?business=cartajoffice1@gmail.com&currency_code=USD" target="_blank">🎧 Donar vía PayPal</a>
+    <a class="athmovil" href="https://www.athmovil.com/cartajo" target="_blank">Donar ATH Móvil</a>
+  </div>
+</div>
 
-  <!-- Player / Emisora -->
-  <section id="player" class="player-card">
-    <div class="player-left">
-      <h3 style="margin:6px 0 4px;color:#013243">🎧 Emisora principal (Radio Nueva Vida)</h3>
-      <iframe class="station-frame" src="https://nuevavida.com/escucha-en-vivo/" title="Radio Nueva Vida - Escucha en vivo"></iframe>
-      <p style="margin-top:8px;font-size:0.92rem;color:#235d74">Si por alguna razón no carga el embed, abajo tienes el reproductor nativo.</p>
-    </div>
-    <div class="player-right">
-      <h3 style="margin:6px 0 4px;color:#013243">🔊 Reproductor alterno</h3>
-      <audio id="nativeRadio" controls preload="none">
-        <source src="http://tropicalflowtv.radiostream321.com/" type="audio/mpeg">
-        Tu navegador no soporta audio en vivo.
-      </audio>
-      <p style="margin-top:8px;font-size:0.9rem;color:#1b6b86">Transmitiendo fe, esperanza y adoración.</p>
-    </div>
-  </section>
-
-  <!-- Carrusel de videos -->
-  <section class="carousel">
-    <h3 style="margin:6px 0 10px;color:#013243">📺 Videos de adoración</h3>
-    <div id="videoWrap">
-      <iframe id="videoFrame" src="https://www.youtube.com/embed/3Uo0JAUWijM?rel=0&showinfo=0&modestbranding=1"
-        title="Video de adoración" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-        allowfullscreen></iframe>
-    </div>
-    <div class="carousel-controls">
-      <div style="font-size:.95rem;color:#235d74">Ahora reproduciendo: <span id="videoTitle">"What a Beautiful Name" — Hillsong</span></div>
-      <div>
-        <button onclick="prevVideo()" style="margin-right:8px;padding:8px 12px;border-radius:8px;border:0;background:#e6f7ff;font-weight:700;cursor:pointer">◀</button>
-        <button onclick="nextVideo()" style="padding:8px 12px;border-radius:8px;border:0;background:#e6f7ff;font-weight:700;cursor:pointer">▶</button>
+<div class="wrap">
+  <!-- RADIO CRISTIANA -->
+  <section id="radio">
+    <h2>🎧 Tropical Flow TV Radio Cristiana 24/7</h2>
+    <div id="radioCard">
+      <div id="radioMini">
+        <button id="openPlayer" class="btn alt">▶ Abrir player</button>
+        <button id="openTab" class="btn warn">🌐 Abrir en pestaña</button>
       </div>
+      <div id="radioViewport">
+        <div class="viewport">
+          <iframe id="radioFrame" title="Tropical Flow Radio Cristiana" src="about:blank"
+            allow="autoplay" sandbox="allow-same-origin allow-scripts allow-forms allow-popups">
+          </iframe>
+        </div>
+      </div>
+      <p class="hint">Si no escuchas, pulsa <b>Abrir en pestaña</b> (evita bloqueos del navegador).</p>
     </div>
-    <div class="dots" id="dotsContainer"></div>
   </section>
 
-</main>
+  <!-- CARRUSEL DE VIDEOS CRISTIANOS -->
+  <section id="videos">
+    <h2>📺 Videos de Adoración</h2>
+    <div id="carouselShell" class="ratio16x9" style="max-width:1100px;margin:0 auto;border-radius:14px;overflow:hidden;background:#000;box-shadow:0 12px 28px rgba(0,0,0,.35)">
+      <div id="ytMain" class="fill"></div>
+    </div>
+    <div class="controls">
+      <button id="cPrev" class="btn">⏮ Anterior</button>
+      <button id="cToggle" class="btn alt">▶ / ⏸</button>
+      <button id="cNext" class="btn">⏭ Siguiente</button>
+      <button id="cFs" class="btn warn">⤢ Pantalla completa</button>
+    </div>
+    <div id="cTitle" style="max-width:1100px;margin:8px auto 10px;text-align:center;font-weight:700"></div>
+    <div id="thumbs" class="thumbStrip"></div>
+  </section>
+</div>
 
-<footer>
-  <strong>© 2025 Tropical Flow RadioTv Cristiana</strong>
-  <div style="font-size:.86rem;color:#2a6b88">Que la paz y la adoración te acompañen hoy.</div>
+<footer style="text-align:center; padding:12px 0; background:rgba(0,0,0,.5)">
+© <span id="year"></span> Tropical Flow TV📺 Radio Cristiana — Que la paz y la adoración te acompañen hoy.
 </footer>
 
 <script>
-  const videos = [
-    {id: 'rD8bGlob__I', title: 'Todo va estar bien'},
-    {id: '7jp2NDiZQS8&pp=0gcJCfsJAYcqIYzv', title: 'Milagroso,abres caminos'},
-    {id: 'rD8bGlob__I', title: 'Rey de verdad'},
-    {id: 'G1Ny5NwAAsk', title: 'Oxigeno'},
-    {id: '21uuqFIWuf4', title: 'Te quiero sentir'}
-  ];
+document.getElementById('year').textContent = new Date().getFullYear();
 
-  let current = 0;
-  const frame = document.getElementById('videoFrame');
-  const titleEl = document.getElementById('videoTitle');
-  const dotsContainer = document.getElementById('dotsContainer');
+const RADIO_URL = "https://listen.radioking.com/radio/12345/stream"; // Aquí tu radio cristiana 24/7
+function getRadioFrame(){ return document.getElementById('radioFrame'); }
+function radioStart(){ const f=getRadioFrame(); if(f.src==="about:blank"||!f.src) f.src=RADIO_URL; }
+function radioStopHard(){ const f=getRadioFrame(); if(f) f.src="about:blank"; }
 
-  videos.forEach((v,i)=>{
-    const d = document.createElement('div');
-    d.className='dot'+(i===0?' active':'');
-    d.dataset.i = i;
-    d.addEventListener('click', ()=> { goTo(i); });
-    dotsContainer.appendChild(d);
+(function(){
+  const viewport  = document.getElementById('radioViewport');
+  const openBtn   = document.getElementById('openPlayer');
+  const tabBtn    = document.getElementById('openTab');
+  function show(){ viewport.style.display='block'; radioStart(); }
+  function hide(){ viewport.style.display='none'; }
+  openBtn.onclick = ()=> (viewport.style.display==='none' ? show() : hide());
+  tabBtn.onclick  = ()=> window.open(RADIO_URL,"_blank");
+  hide();
+})();
+
+/* Carrusel YouTube IDs de videos cristianos */
+const CAROUSEL_IDS = [
+  "rD8bGlob__I", "tpi8zLE3Kqw", "RBE8A9rAj8Y" // Puedes añadir más IDs de tus videos
+];
+
+let cIndex=0, cPlayer=null;
+function buildThumbs(){
+  const wrap=document.getElementById('thumbs');
+  wrap.innerHTML = CAROUSEL_IDS.map((id,i)=>`
+    <div class="thumb ${i===cIndex?'active':''}" data-i="${i}">
+      <img src="https://img.youtube.com/vi/${id}/hqdefault.jpg" alt="thumb ${i+1}">
+      <div class="playOverlay"><div class="playBtn"></div></div>
+    </div>`).join('');
+  wrap.querySelectorAll('.thumb').forEach(el=> el.onclick = ()=>{ cIndex=+el.dataset.i; loadCarousel(true); });
+}
+function markActive(){ document.querySelectorAll('#thumbs .thumb').forEach((el,i)=> el.classList.toggle('active', i===cIndex)); }
+function updateCTitle(){ try{ document.getElementById('cTitle').textContent = cPlayer.getVideoData()?.title || ""; }catch(_){} }
+function prevC(){ cIndex=(cIndex-1+CAROUSEL_IDS.length)%CAROUSEL_IDS.length; loadCarousel(true); }
+function nextC(){ cIndex=(cIndex+1)%CAROUSEL_IDS.length; loadCarousel(true); }
+function createCarousel(){
+  if (!(window.YT && window.YT.Player)) return;
+  cPlayer = new YT.Player('ytMain',{
+    videoId: CAROUSEL_IDS[cIndex],
+    playerVars:{rel:0,modestbranding:1,playsinline:1,controls:1},
+    events:{
+      onReady:()=>{ updateCTitle(); },
+      onStateChange:e=>{
+        if(e.data===YT.PlayerState.PLAYING) radioStopHard();
+        if(e.data===YT.PlayerState.ENDED) nextC();
+        if(e.data===YT.PlayerState.PLAYING||e.data===YT.PlayerState.CUED) updateCTitle();
+      }
+    }
   });
-
-  function loadVideo(i){
-    const vid = videos[i];
-    frame.src = `https://www.youtube.com/embed/${vid.id}?rel=0&autoplay=1&mute=0&showinfo=0&modestbranding=1`;
-    titleEl.textContent = vid.title;
-    const dots = document.querySelectorAll('.dot');
-    dots.forEach((dot, idx)=> dot.classList.toggle('active', idx===i));
-  }
-
-  function nextVideo(){ current = (current + 1) % videos.length; loadVideo(current); resetTimer(); }
-  function prevVideo(){ current = (current - 1 + videos.length) % videos.length; loadVideo(current); resetTimer(); }
-  function goTo(i){ current = i; loadVideo(current); resetTimer(); }
-
-  let carouselTimer = setInterval(nextVideo, 18000);
-  function resetTimer(){ clearInterval(carouselTimer); carouselTimer = setInterval(nextVideo, 18000); }
-
-  loadVideo(0);
-
-  document.addEventListener('click', function oncePlay() {
-    const audio = document.getElementById('nativeRadio');
-    if(audio && audio.paused) audio.play().catch(()=>{});
-    document.removeEventListener('click', oncePlay);
-  });
+  window._ytCarousel = cPlayer;
+  buildThumbs();
+  document.getElementById('cPrev').onclick = prevC;
+  document.getElementById('cNext').onclick = nextC;
+  document.getElementById('cToggle').onclick = ()=>{ const s=cPlayer.getPlayerState?.(); if(s===YT.PlayerState.PLAYING) cPlayer.pauseVideo(); else { radioStopHard(); cPlayer.playVideo(); } };
+  const fsBtn=document.getElementById('cFs'), shell=document.getElementById('carouselShell');
+  fsBtn.onclick=()=>{ if(document.fullscreenElement) document.exitFullscreen?.(); else shell?.requestFullscreen?.(); };
+}
+(function bootYT(){ let started=false; function start(){ if(started) return; started=true; createCarousel(); } if(window.YT && window.YT.Player) start(); const prev=window.onYouTubeIframeAPIReady; window.onYouTubeIframeAPIReady=function(){ if(typeof prev==='function') prev(); start(); }; })();
 </script>
-
 </body>
 </html>

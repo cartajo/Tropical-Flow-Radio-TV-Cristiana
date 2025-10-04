@@ -194,7 +194,7 @@ footer{padding:18px;text-align:center;color:var(--muted);font-size:14px}
     ctx.fillText(line,x,y);
   }
 
-  // VIDEOS YOUTUBE PLAYLIST AUTOMÁTICO CON AUTOPLAY MÓVILES
+  // VIDEOS YOUTUBE PLAYLIST AUTOMÁTICO
   let player;
   const videoPlaylist=["A0BUNnIZYwY","B1CDEF2GH3I","C4HIJK5LM6N"]; // IDs de tus videos
   let currentVideo=0;
@@ -204,14 +204,12 @@ footer{padding:18px;text-align:center;color:var(--muted);font-size:14px}
       height:'100%',
       width:'100%',
       videoId:videoPlaylist[currentVideo],
-      playerVars:{autoplay:1, controls:1, mute:1},
-      events:{'onReady':onPlayerReady,'onStateChange':onPlayerStateChange}
+      events:{
+        'onReady':e=>e.target.playVideo(),
+        'onStateChange':onPlayerStateChange
+      },
+      playerVars:{autoplay:1, controls:1}
     });
-  }
-
-  function onPlayerReady(event){
-    event.target.playVideo();
-    setTimeout(()=>event.target.unMute(),1000);
   }
 
   function onPlayerStateChange(event){
@@ -219,8 +217,6 @@ footer{padding:18px;text-align:center;color:var(--muted);font-size:14px}
       currentVideo++;
       if(currentVideo>=videoPlaylist.length) currentVideo=0;
       player.loadVideoById(videoPlaylist[currentVideo]);
-      player.mute();
-      setTimeout(()=>player.unMute(),1000);
     }
   }
 </script>

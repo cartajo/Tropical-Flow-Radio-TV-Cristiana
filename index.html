@@ -229,8 +229,8 @@ footer{padding:18px;text-align:center;color:var(--muted);font-size:14px}
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tropical Flow RadioTv Cristiana</title>
-<meta name="description" content="Tropical Flow RadioTv Cristiana — Música y mensajes para honrar a Dios.">
+<title>Tropical Flow RadioTv Cristiana - Avanzado</title>
+<meta name="description" content="Tropical Flow RadioTv Cristiana — Música, videos y mensajes para honrar a Dios.">
 <style>
 :root{--bg:#fffaf0;--accent:#2b6cb0;--muted:#6b7280;--card:#ffffff}
 *{box-sizing:border-box}
@@ -268,12 +268,11 @@ footer{padding:18px;text-align:center;color:var(--muted);font-size:14px}
 
 <main class="container">
 <section class="card">
-<h2>Reproductor — En vivo / AutoDJ</h2>
-<p class="lead">Usa el botón Reproducir para escuchar la transmisión en vivo. La playlist de videos y MP3 funciona automáticamente uno tras otro.</p>
+<h2>Reproductor Unificado — MP3 + Videos + En Vivo</h2>
 <div class="player">
   <!-- STREAMING EN VIVO -->
   <audio id="stream" controls preload="none">
-    <source id="streamSource" src="https://your-stream-url.example/stream.mp3" type="audio/mpeg">
+    <source src="https://your-stream-url.example/stream.mp3" type="audio/mpeg">
     Tu navegador no soporta audio en línea.
   </audio>
   <div class="controls">
@@ -285,16 +284,21 @@ footer{padding:18px;text-align:center;color:var(--muted);font-size:14px}
   <hr>
 
   <!-- PLAYLIST LOCAL MP3 -->
-  <h3>Playlist local (MP3)</h3>
+  <h3>Playlist MP3</h3>
   <input id="fileInput" type="file" accept="audio/*" multiple>
-  <div class="playlist" id="playlist"></div>
+  <div class="playlist" id="playlistMP3"></div>
 
   <hr>
 
-  <!-- PLAYLIST DE VIDEOS -->
-  <h3>Videos (YouTube)</h3>
+  <!-- PLAYLIST VIDEOS -->
+  <h3>Videos YouTube</h3>
   <div id="videoContainer" style="aspect-ratio:16/9;overflow:hidden;border-radius:8px;border:1px solid #efe7d8">
     <div id="youtubePlayer"></div>
+  </div>
+
+  <hr>
+  <div class="controls">
+    <button id="nextMedia" class="btn secondary">Siguiente</button>
   </div>
 </div>
 </section>
@@ -323,20 +327,6 @@ footer{padding:18px;text-align:center;color:var(--muted);font-size:14px}
 <p>Correo: <a href="mailto:cartajo1970@gmail.com">cartajo1970@gmail.com</a></p>
 <p>WhatsApp: <a href="https://wa.me/17873133929" target="_blank">+1 787-313-3929</a></p>
 </aside>
-
-<section class="card full">
-<div class="grid">
-<div>
-<h3>Oración del día</h3>
-<div style="padding:10px;border-radius:8px;background:linear-gradient(180deg,#fff,#fff);border:1px solid #f6efe6">
-<h4>Oración de Luz y Paz</h4>
-<p>Padre amado, hoy vengo delante de Ti con un corazón agradecido. Te pido que derrames Tu luz sobre mí y que sea reflejo de Tu paz para los demás. En el nombre de Jesús, amén.</p>
-<p style="font-size:13px;color:var(--muted)">Guarda esta oración en tu teléfono y compártela con quien necesite consuelo hoy.</p>
-<button id="downloadPrayer" class="btn secondary">Descargar imagen</button>
-</div>
-</div>
-</div>
-</section>
 </main>
 
 <footer>
@@ -350,20 +340,35 @@ footer{padding:18px;text-align:center;color:var(--muted);font-size:14px}
   const stream=document.getElementById('stream');
   const playBtn=document.getElementById('playStream');
   const stopBtn=document.getElementById('stopStream');
-  playBtn.addEventListener('click',()=>stream.play().catch(e=>alert('No se puede reproducir el stream.')));
+  const listeners=document.getElementById('listeners');
+  playBtn.addEventListener('click',()=>stream.play().catch(()=>alert('No se puede reproducir el stream.')));
   stopBtn.addEventListener('click',()=>{stream.pause();stream.currentTime=0;});
-  document.getElementById('listeners').innerText='—';
+  listeners.innerText='—';
 
-  // PLAYLIST LOCAL MP3
+  // CONTADOR DE OYENTES (AzuraCast/Icecast JSON)
+  async function updateListeners(){
+    try{
+      const resp=await fetch('https://your-stream-url.example/status-json.xsl');
+      const data=await resp.json();
+      listeners.innerText=data.icestats.source[0].listeners || '—';
+    }catch{listeners.innerText='—';}
+  }
+  setInterval(updateListeners,15000);
+  updateListeners();
+
+  // MP3 LOCAL
   const fileInput=document.getElementById('fileInput');
-  const playlistEl=document.getElementById('playlist');
+  const playlistEl=document.getElementById('playlistMP3');
+  let mp3Tracks=[];
+  let videoTracks=["A0BUNnIZYwY","B1CDEF2GH3I"]; // IDs de YouTube
+  let currentIndex=0; // posición global de reproducción
   let localPlayer=new Audio();
-  let tracks=[];
-  let currentTrack=0;
+  let player; // YouTube player
+  let isPlayingVideo=false;
 
-  function renderPlaylist(){
+  function renderMP3Playlist(){
     playlistEl.innerHTML='';
-    tracks.forEach((t,i)=>{
+    mp3Tracks.forEach((t,i)=>{
       const div=document.createElement('div');
       div.className='track';
       div.innerHTML=`<div style="max-width:70%">${t.name}</div><div><button data-i="${i}" class="btn secondary">Reproducir</button></div>`;
@@ -373,81 +378,65 @@ footer{padding:18px;text-align:center;color:var(--muted);font-size:14px}
 
   fileInput.addEventListener('change',e=>{
     const files=Array.from(e.target.files);
-    files.forEach(f=>tracks.push({name:f.name,url:URL.createObjectURL(f)}));
-    renderPlaylist();
+    files.forEach(f=>mp3Tracks.push({name:f.name,url:URL.createObjectURL(f)}));
+    renderMP3Playlist();
   });
 
   playlistEl.addEventListener('click',e=>{
     const btn=e.target.closest('button');
     if(!btn) return;
     const i=Number(btn.dataset.i);
-    if(Number.isFinite(i)) playTrack(i);
+    if(Number.isFinite(i)) playMedia(i,'mp3');
   });
 
-  function playTrack(i){
-    currentTrack=i;
-    localPlayer.src=tracks[i].url;
-    localPlayer.play();
-  }
-
-  localPlayer.addEventListener('ended',()=>{
-    currentTrack++;
-    if(currentTrack>=tracks.length) currentTrack=0;
-    if(tracks.length>0) playTrack(currentTrack);
-  });
-
-  // DESCARGAR ORACIÓN
-  document.getElementById('downloadPrayer').addEventListener('click',()=>{
-    const canvas=document.createElement('canvas');
-    canvas.width=1200; canvas.height=1600;
-    const ctx=canvas.getContext('2d');
-    ctx.fillStyle='#fff7ee'; ctx.fillRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle='#3b2f2f'; ctx.textAlign='center';
-    ctx.font='bold 56px serif'; ctx.fillText('Oración de Luz y Paz', canvas.width/2, 110);
-    ctx.font='22px serif';
-    const text='Padre amado, hoy vengo delante de Ti con un corazón agradecido.\nTe pido que derrames Tu luz sobre mí y que sea reflejo de Tu paz para los demás.\nEn el nombre de Jesús, amén.';
-    wrapText(ctx,text,canvas.width/2,180,900,34);
-    const link=document.createElement('a'); link.download='oracion_de_luz_y_paz.png'; link.href=canvas.toDataURL('image/png'); link.click();
-  });
-
-  function wrapText(ctx,text,x,y,maxWidth,lineHeight){
-    const words=text.split(' '); let line='';
-    for(let n=0;n<words.length;n++){
-      const testLine=line+words[n]+' ';
-      const metrics=ctx.measureText(testLine);
-      if(metrics.width>maxWidth && n>0){ctx.fillText(line,x,y);line=words[n]+' ';y+=lineHeight;} else{line=testLine;}
+  function playMedia(index,type){
+    currentIndex=index;
+    if(type==='mp3'){
+      isPlayingVideo=false;
+      player && player.pauseVideo && player.pauseVideo();
+      localPlayer.src=mp3Tracks[index].url;
+      localPlayer.play();
+    } else {
+      isPlayingVideo=true;
+      localPlayer.pause();
+      player.loadVideoById(videoTracks[index]);
+      player.mute();
+      setTimeout(()=>player.unMute(),500);
     }
-    ctx.fillText(line,x,y);
   }
 
-  // VIDEOS YOUTUBE PLAYLIST AUTOMÁTICO ESCALABLE
-  let player;
-  let videoPlaylist=["A0BUNnIZYwY","B1CDEF2GH3I","C4HIJK5LM6N"]; // <-- Aquí agrega los IDs de todos tus videos
-  let currentVideo=0;
+  // NEXT BUTTON
+  document.getElementById('nextMedia').addEventListener('click',()=>{
+    nextMedia();
+  });
 
+  function nextMedia(){
+    if(isPlayingVideo){
+      currentIndex++;
+      if(currentIndex>=videoTracks.length) currentIndex=0;
+      playMedia(currentIndex,'video');
+    }else{
+      currentIndex++;
+      if(currentIndex>=mp3Tracks.length) currentIndex=0;
+      playMedia(currentIndex,'mp3');
+    }
+  }
+
+  localPlayer.addEventListener('ended',()=>nextMedia());
+
+  // YOUTUBE PLAYLIST
   function onYouTubeIframeAPIReady(){
     player=new YT.Player('youtubePlayer',{
       height:'100%',
       width:'100%',
-      videoId:videoPlaylist[currentVideo],
-      playerVars:{autoplay:1, controls:1, mute:1},
-      events:{'onReady':onPlayerReady,'onStateChange':onPlayerStateChange}
+      videoId:videoTracks[0],
+      playerVars:{autoplay:0, controls:1, mute:1},
+      events:{'onReady':()=>{},'onStateChange':onVideoStateChange}
     });
   }
 
-  function onPlayerReady(event){
-    event.target.playVideo();
-    setTimeout(()=>event.target.unMute(),1000);
-  }
-
-  function onPlayerStateChange(event){
-    if(event.data===YT.PlayerState.ENDED){
-      currentVideo++;
-      if(currentVideo>=videoPlaylist.length) currentVideo=0;
-      player.loadVideoById(videoPlaylist[currentVideo]);
-      player.mute();
-      setTimeout(()=>player.unMute(),1000);
-    }
+  function onVideoStateChange(event){
+    if(event.data===YT.PlayerState.ENDED) nextMedia();
   }
 </script>
 </body>

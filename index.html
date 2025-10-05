@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tropical Flow Radio📺 Cristiana PRO</title>
+<title>Tropical Flow Radio📺 Cristiana</title>
 <meta name="description" content="Tropical Flow Radio📺 Cristiana — Música y Palabra 24/7.">
 
 <style>
@@ -34,7 +34,6 @@ h2{ margin:0 0 12px; text-align:center }
 .controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:10px}
 
 /* RADIO */
-#radioCard{max-width:950px;margin:0 auto;padding:14px;border-radius:14px;background:var(--card);backdrop-filter:blur(4px)}
 #radioAudio{width:100%; outline:none; border-radius:12px;}
 
 /* PLAYLIST */
@@ -83,7 +82,7 @@ h2{ margin:0 0 12px; text-align:center }
 <div class="bg-mark">Tropical Flow Radio📺</div>
 
 <header>
-  <h1>🌴 Tropical Flow Radio📺 Cristiana PRO</h1>
+  <h1>🌴 Tropical Flow Radio📺 Cristiana</h1>
 </header>
 
 <div class="top-social">
@@ -105,9 +104,6 @@ h2{ margin:0 0 12px; text-align:center }
       <source src="https://streaming.zeno.fm/rx2rz3ht3druv" type="audio/mpeg">
       Tu navegador no soporta audio HTML5.
     </audio>
-    <div class="controls">
-      <button id="radioToggle" class="btn alt">⏯ Play/Pause Radio</button>
-    </div>
     <div id="listeners">Oyentes en vivo: <span id="listenerCount">0</span></div>
   </section>
 
@@ -147,14 +143,15 @@ h2{ margin:0 0 12px; text-align:center }
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-/* CONTADOR OYENTES */
-function updateListeners(){document.getElementById('listenerCount').textContent = Math.floor(Math.random()*120+30);}
+/* CONTADOR DE OYENTES SIMULADO */
+function updateListeners(){
+  document.getElementById('listenerCount').textContent = Math.floor(Math.random()*120+30);
+}
 setInterval(updateListeners,5000);
 updateListeners();
 
 /* RADIO + AUTODJ */
 const radio = document.getElementById('radioAudio');
-const radioToggle = document.getElementById('radioToggle');
 const songPlayer = document.getElementById('songPlayer');
 const plist = document.getElementById('plist');
 const songs = Array.from(plist.querySelectorAll('li'));
@@ -169,18 +166,12 @@ function playSong(i){
   currentSong=i;
 }
 songs.forEach((li,i)=>li.onclick=()=>playSong(i));
-
 songPlayer.onended = ()=>{
   radio.play().catch(()=>{}); 
   songPlayer.pause();
 };
 
-radioToggle.onclick = ()=>{
-  if(radio.paused) radio.play();
-  else radio.pause();
-};
-
-/* CARRUSEL YOUTUBE */
+/* ===== CARRUSEL YOUTUBE ===== */
 const CAROUSEL_IDS = ["3Uo0JAUWijM","rD8bGlob__I","tpi8zLE3Kqw","RBE8A9rAj8Y","XYe0ZHVvVig"];
 let cIndex=0, cPlayer=null;
 
@@ -216,7 +207,9 @@ function createCarousel(){
   document.getElementById('cToggle').onclick = ()=>{ const s=cPlayer.getPlayerState?.(); if(s===YT.PlayerState.PLAYING)cPlayer.pauseVideo(); else cPlayer.playVideo(); };
   document.getElementById('cFs').onclick = ()=>{ if(document.fullscreenElement) document.exitFullscreen?.(); else document.getElementById('carouselShell')?.requestFullscreen?.(); };
 }
+
 function loadCarousel(play){ cPlayer.loadVideoById(CAROUSEL_IDS[cIndex]); markActive(); updateCTitle(); if(!play) cPlayer.pauseVideo?.(); }
+
 (function bootYT(){
   let started=false;
   function start(){ if(started)return; started=true; createCarousel(); }
@@ -227,4 +220,3 @@ function loadCarousel(play){ cPlayer.loadVideoById(CAROUSEL_IDS[cIndex]); markAc
 </script>
 </body>
 </html>
-

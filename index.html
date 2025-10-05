@@ -7,31 +7,57 @@
 <meta name="description" content="Tropical Flow Radio📺 Cristiana — Música y Palabra 24/7.">
 
 <style>
-:root{
-  --accent:#00e0ff; --accent2:#2dd4bf; --warn:#fbbf24;
-  --glass:rgba(0,0,0,.62); --panel:rgba(255,255,255,.08);
-  --card:rgba(0,0,0,.60); --maxw:1200px;
-}
-*{box-sizing:border-box;margin:0;padding:0;}
-html,body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#fff;background:#111;}
-.bg-mark{position:fixed; inset:0; pointer-events:none; z-index:0; display:flex; align-items:center; justify-content:center;font-weight:900; letter-spacing:.08em; text-transform:uppercase; font-size:clamp(38px,10vw,120px);}
-header, footer{ position:relative; z-index:2; text-align:center; padding:14px; background:rgba(0,0,0,.5) }
-h1{ margin:0; font-size:clamp(22px,3.4vw,36px) }
+  :root{
+    --accent:#00e0ff; --accent2:#2dd4bf; --warn:#fbbf24;
+    --glass:rgba(0,0,0,.62); --panel:rgba(255,255,255,.08);
+    --card:rgba(0,0,0,.60); --maxw:1100px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    color:#fff;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,Helvetica,sans-serif;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.80)),
+      url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1920&auto=format&fit=crop")
+      center/cover fixed no-repeat;
+  }
+  .bg-mark{
+    position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.06;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:900; letter-spacing:.08em; text-transform:uppercase;
+    font-size:clamp(38px,10vw,120px);
+  }
+  header, footer{ position:relative; z-index:2; text-align:center; padding:14px; background:rgba(0,0,0,.5) }
+  h1{ margin:0; font-size:clamp(22px,3.4vw,36px) }
 
-.top-social{ position:relative; z-index:2; background:rgba(0,0,0,.6); padding:10px 12px;}
-.social{ max-width:var(--maxw); margin:0 auto; display:flex; flex-wrap:wrap; gap:10px; justify-content:center;}
-.social a{ text-decoration:none; color:#fff; padding:.55rem .9rem; border-radius:10px; font-weight:800; background:#444; display:inline-flex; align-items:center; gap:.5rem; border:1px solid rgba(255,255,255,.15);}
-.whatsapp{ background:#25d366 } .youtube{ background:#FF0000 }
-.facebook{ background:#3b5998 } .paypal{ background:#0070ba } .athmovil{ background:#6f42c1 }
+  /* Barra social superior */
+  .top-social{
+    position:relative; z-index:2;
+    background:rgba(0,0,0,.6);
+    padding:10px 12px;
+  }
+  .social{
+    max-width:var(--maxw);
+    margin:0 auto;
+    display:flex; flex-wrap:wrap; gap:10px; justify-content:center;
+  }
+  .social a{
+    text-decoration:none; color:#fff; padding:.55rem .9rem; border-radius:10px; font-weight:800;
+    background:#444; display:inline-flex; align-items:center; gap:.5rem; border:1px solid rgba(255,255,255,.15);
+  }
+  .whatsapp{ background:#25d366 } .youtube{ background:#FF0000 }
+  .facebook{ background:#3b5998 } .paypal{ background:#0070ba } .athmovil{ background:#6f42c1 }
 
-.wrap{ position:relative; z-index:1; max-width:var(--maxw); margin:16px auto; padding:16px; background:var(--glass); border-radius:16px }
-section{ margin:18px 0; padding:16px; background:var(--panel); border-radius:14px }
-h2{ margin:0 0 12px; text-align:center }
+  .wrap{ position:relative; z-index:1; max-width:var(--maxw); margin:16px auto; padding:16px; background:var(--glass); border-radius:16px }
+  section{ margin:18px 0; padding:16px; background:var(--panel); border-radius:14px }
+  h2{ margin:0 0 12px; text-align:center }
 
-.btn{background:var(--accent);color:#000;border:0;border-radius:12px;font-weight:800;padding:10px 14px;cursor:pointer}
-.btn.alt{background:var(--accent2)}
-.btn.warn{background:var(--warn);color:#000}
-.controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+  .btn{background:var(--accent);color:#000;border:0;border-radius:12px;font-weight:800;padding:10px 14px;cursor:pointer}
+  .btn.alt{background:var(--accent2)}
+  .btn.warn{background:var(--warn);color:#000}
+  .controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+
 
 /* RADIO 24/7 Nueva Vida */
 #radioCard{position:relative;max-width:950px;margin:0 auto;padding:14px;border-radius:14px;background:var(--card);backdrop-filter:blur(4px)}
@@ -226,153 +252,4 @@ function loadCarousel(play){ cPlayer.loadVideoById(CAROUSEL_IDS[cIndex]); markAc
 </body>
 </html>
 
-  .bg-mark{
-    position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.06;
-    display:flex; align-items:center; justify-content:center;
-    font-weight:900; letter-spacing:.08em; text-transform:uppercase;
-    font-size:clamp(38px,10vw,120px);
-  }
-  header, footer{ position:relative; z-index:2; text-align:center; padding:14px; background:rgba(0,0,0,.5) }
-  h1{ margin:0; font-size:clamp(22px,3.4vw,36px) }
-
-  /* Barra social superior */
-  .top-social{
-    position:relative; z-index:2;
-    background:rgba(0,0,0,.6);
-    padding:10px 12px;
-  }
-  .social{
-    max-width:var(--maxw);
-    margin:0 auto;
-    display:flex; flex-wrap:wrap; gap:10px; justify-content:center;
-  }
-  .social a{
-    text-decoration:none; color:#fff; padding:.55rem .9rem; border-radius:10px; font-weight:800;
-    background:#444; display:inline-flex; align-items:center; gap:.5rem; border:1px solid rgba(255,255,255,.15);
-  }
-  .whatsapp{ background:#25d366 } .youtube{ background:#FF0000 }
-  .facebook{ background:#3b5998 } .paypal{ background:#0070ba } .athmovil{ background:#6f42c1 }
-
-  .wrap{ position:relative; z-index:1; max-width:var(--maxw); margin:16px auto; padding:16px; background:var(--glass); border-radius:16px }
-  section{ margin:18px 0; padding:16px; background:var(--panel); border-radius:14px }
-  h2{ margin:0 0 12px; text-align:center }
-
-  .btn{background:var(--accent);color:#000;border:0;border-radius:12px;font-weight:800;padding:10px 14px;cursor:pointer}
-  .btn.alt{background:var(--accent2)}
-  .btn.warn{background:var(--warn);color:#000}
-  .controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:10px}
-
-  /* ─── RADIO ─── */
-  #radioCard{position:relative;max-width:950px;margin:0 auto;padding:14px;border-radius:14px;background:var(--card);backdrop-filter:blur(4px)}
-  #radioViewport{position:relative;display:none;border-radius:14px;overflow:hidden;background:#000}
-  #radioViewport .viewport{position:relative;width:100%;padding-top:52%}
-  #radioFrame{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
-  #radioMini{display:flex;gap:10px;justify-content:center;align-items:center}
-  .hint{color:#bbb;font-size:.9rem;text-align:center;margin-top:8px}
-  @media (max-width:900px){ #radioViewport .viewport{ padding-top:56% } }
-  @media (max-width:700px){ #radioViewport .viewport{ padding-top:62% } }
-  @media (max-width:540px){ #radioViewport .viewport{ padding-top:68% } }
-
- 
-
   
-
-  <!-- ============= 1) RADIO ============= -->
-  <section id="radio">
-    <h2>🎧 Tropical Flow TV Radio</h2>
-    <div id="radioCard">
-      <div id="radioMini">
-        <button id="openPlayer" class="btn alt">▶ Abrir player</button>
-        <button id="openTab" class="btn warn">🌐 Abrir en pestaña</button>
-      </div>
-      <div id="radioViewport">
-        <div class="viewport">
-          <iframe
-            id="radioFrame"
-            title="Tropical Flow Radio"
-            src="about:blank"
-            allow="autoplay"
-            sandbox="allow-same-origin allow-scripts allow-forms allow-popups">
-          </iframe>
-        </div>
-      </div>
-      <p class="hint">Si no escuchas, pulsa <b>Abrir en pestaña</b> (evita bloqueos del navegador).</p>
-    </div>
-  </section>
-
- 
-/* ========== HUB: Pausa cruzada (corte duro radio) ========== */
-const RADIO_URL = "https://tropicalflow.listen2myshow.com/?autoplay=1";
-function getRadioFrame(){ return document.getElementById('radioFrame'); }
-function radioStart(){
-  const f=getRadioFrame();
-  if (f && (f.src==="about:blank" || !f.src)) f.src=RADIO_URL;
-}
-function radioStopHard(){ const f=getRadioFrame(); if (f) f.src="about:blank"; }
-
-function getPl(){ return document.getElementById('plAudio'); }
-function getCarousel(){ return window._ytCarousel || null; }
-function getPromo(){ return window._ytPromo || null; }
-
-function pauseAllExcept(kind){
-  try{
-    if (kind!=='radio'){ radioStopHard(); } // silencia radio (iframe externo)
-    if (kind!=='playlist'){ const a=getPl(); if (a && !a.paused) a.pause(); }
-    if (kind!=='yt'){ const c=getCarousel(); if (c?.getPlayerState?.()===YT.PlayerState.PLAYING) c.pauseVideo(); }
-    if (kind!=='promo'){ const p=getPromo(); if (p?.getPlayerState?.()===YT.PlayerState.PLAYING) p.pauseVideo(); }
-  }catch(e){}
-}
-
-/* ========== RADIO (minimizada + abrir) ========== */
-(function(){
-  const viewport  = document.getElementById('radioViewport');
-  const openBtn   = document.getElementById('openPlayer');
-  const tabBtn    = document.getElementById('openTab');
-
-  function show(){
-    viewport.style.display='block';
-    radioStart();
-    pauseAllExcept('radio');
-  }
-  function hide(){ viewport.style.display='none'; }
-
-  openBtn.onclick = ()=> (viewport.style.display==='none' ? show() : hide());
-  tabBtn.onclick  = ()=> window.open("https://tropicalflow.listen2myshow.com","_blank");
-
-  hide(); // entra minimizada
-})();
-
-
-  function render(){
-    list.innerHTML="";
-    TRACKS.forEach((t,idx)=>{
-      const li=document.createElement('li');
-      li.textContent = (idx===i?"▶ ":"")+t.title;
-      li.className = idx===i ? "active" : "";
-      li.onclick = ()=>{ i=idx; load(true); };
-      list.appendChild(li);
-    });
-  }
-  function msg(tx, warn=false){ status.textContent=tx; status.className="status"+(warn?" warn":""); }
-  function load(auto){
-    audio.src = TRACKS[i].src;
-    render();
-    msg("Listo: "+TRACKS[i].title+" ✓");
-    if(auto){ pauseAllExcept('playlist'); audio.play().catch(()=>{}); }
-  }
-
-  prev.onclick  = ()=>{ i=(i-1+TRACKS.length)%TRACKS.length; load(true); };
-  next.onclick  = ()=>{ i=(i+1)%TRACKS.length; load(true); };
-  toggle.onclick= ()=>{ if(audio.paused){ pauseAllExcept('playlist'); audio.play().catch(()=>{});} else audio.pause(); };
-  audio.addEventListener('ended', ()=> next.onclick());
-  audio.addEventListener('play',  ()=> pauseAllExcept('playlist'));
-  audio.addEventListener('error', ()=> msg("⚠ No se pudo cargar: "+decodeURIComponent(TRACKS[i].src), true));
-
-  render(); load(false);
-})();
-
-;
-})();
-</script>
-</body>
-</html> 

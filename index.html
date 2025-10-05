@@ -63,18 +63,6 @@ h2{ margin:0 0 12px; text-align:center }
 #radioMini{display:flex;gap:10px;justify-content:center;align-items:center}
 #radioAudio{width:100%; outline:none; border-radius:12px;}
 
-/* PLAYLIST */
-audio{width:100%;max-width:720px;margin:8px auto;display:block;border-radius:12px}
-.plist{list-style:none;margin:10px auto 0;padding:0;max-height:340px;overflow:auto}
-.plist li{padding:8px 10px;border-radius:10px;cursor:pointer}
-.plist li.active{background:rgba(0,191,255,.28)}
-.status{margin-top:8px;color:#7CFC00;text-align:center}
-.status.warn{color:#ffd166}
-.plist::-webkit-scrollbar{width:10px}
-.plist::-webkit-scrollbar-track{background:rgba(255,255,255,.08);border-radius:10px}
-.plist::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--accent),#00bcd4);border-radius:10px}
-.plist{scrollbar-width:thin;scrollbar-color:#00bcd4 rgba(255,255,255,.08)}
-
 /* CARRUSEL VIDEO FULL WIDTH */
 #carouselShell{position:relative;width:100%;padding-top:56.25%;border-radius:14px;overflow:hidden;background:#000;box-shadow:0 12px 28px rgba(0,0,0,.35)}
 #ytMain{position:absolute;top:0;left:0;width:100%;height:100%}
@@ -148,9 +136,7 @@ const CAROUSEL_IDS = [
   "3Uo0JAUWijM","rD8bGlob__I","tpi8zLE3Kqw","RBE8A9rAj8Y","XYe0ZHVvVig",
   "x8oCJu1mD8Q","dQw4w9WgXcQ","kXYiU_JCYtU","C0DPdy98e4c","9bZkp7q19f0",
   "5qap5aO4i9A","hY7m5jjJ9mM","tAGnKpE4NCI","ScMzIvxBSi4","RgKAFK5djSk",
-  "JGwWNGJdvx8","fLexgOxsZu0","hT_nvWreIhg","OPf0YbXqDm0","YQHsXMglC9A",
-  "09R8_2nJtjg","uelHwf8o7_U","60ItHLz5WEA","kJQP7kiw5Fk",
-  "d-diB65scQU","3AtDnEC4zak","6Mgqbai3fKo","CevxZvSJLk8","pRpeEdMmmQ0"
+  "JGwWNGJdvx8","fLexgOxsZu0","hT_nvWreIhg","OPf0YbXqDm0","YQHsXMglC9A"
 ];
 let cIndex=0, cPlayer=null;
 
@@ -186,7 +172,7 @@ function createCarousel(){
   if (!(window.YT && window.YT.Player)) return;
   cPlayer = new YT.Player('ytMain',{
     videoId: CAROUSEL_IDS[cIndex],
-    playerVars:{rel:0,modestbranding:1,playsinline:1,controls:1},
+    playerVars:{rel:0,modestbranding:1,playsinline:1,controls:1,autoplay:1},
     events:{
       onReady:()=>{ updateCTitle(); cPlayer.playVideo(); },
       onStateChange:e=>{
@@ -200,11 +186,6 @@ function createCarousel(){
   document.getElementById('cNext').onclick = nextC;
   document.getElementById('cToggle').onclick = ()=>{ const s=cPlayer.getPlayerState?.(); if(s===YT.PlayerState.PLAYING)cPlayer.pauseVideo(); else{ pauseAllExcept('yt'); cPlayer.playVideo(); } };
   document.getElementById('cFs').onclick = ()=>{ if(document.fullscreenElement) document.exitFullscreen?.(); else document.getElementById('carouselShell')?.requestFullscreen?.(); };
-
-  setInterval(()=>{ 
-    cIndex = (cIndex + 1) % CAROUSEL_IDS.length; 
-    loadCarousel(true); 
-  }, 30000);
 }
 
 function loadCarousel(play){ 

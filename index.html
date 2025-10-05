@@ -1,27 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Tropical Flow TV 📺 Radio – VIP</title>
-<meta name="description" content="Tropical Flow TV Radio — Música y Palabra 24/7.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tropical Flow TV 📺 Radio Cristiana – VIP</title>
+<meta name="description" content="Tropical Flow TV Radio Cristiana — Música y Palabra 24/7.">
 
 <style>
 :root{
   --accent:#00e0ff; --accent2:#2dd4bf; --warn:#fbbf24;
   --glass:rgba(0,0,0,.62); --panel:rgba(255,255,255,.08);
-  --card:rgba(0,0,0,.60); --maxw:1100px;
+  --card:rgba(0,0,0,.60); --maxw:1200px;
 }
-*{box-sizing:border-box}
-html,body{margin:0}
-body{
-  color:#fff;
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,Helvetica,sans-serif;
-  background:
-    linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.80)),
-    url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1920&auto=format&fit=crop")
-    center/cover fixed no-repeat;
-}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#fff;background:#111;}
 .bg-mark{
   position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.06;
   display:flex; align-items:center; justify-content:center;
@@ -31,7 +23,6 @@ body{
 header, footer{ position:relative; z-index:2; text-align:center; padding:14px; background:rgba(0,0,0,.5) }
 h1{ margin:0; font-size:clamp(22px,3.4vw,36px) }
 
-/* Barra social superior */
 .top-social{
   position:relative; z-index:2;
   background:rgba(0,0,0,.6);
@@ -60,16 +51,13 @@ h2{ margin:0 0 12px; text-align:center }
 
 /* RADIO 24/7 Nueva Vida */
 #radioCard{position:relative;max-width:950px;margin:0 auto;padding:14px;border-radius:14px;background:var(--card);backdrop-filter:blur(4px)}
-#radioMini{display:flex;gap:10px;justify-content:center;align-items:center}
 #radioAudio{width:100%; outline:none; border-radius:12px;}
 
-/* MINI PLAYLIST */
-audio{width:100%;max-width:720px;margin:8px auto;display:block;border-radius:12px}
-.plist{list-style:none;margin:10px auto 0;padding:0;max-height:220px;overflow:auto}
-.plist li{padding:8px 10px;border-radius:10px;cursor:pointer}
+/* PLAYLIST SCROLL */
+#playlistWrap{max-height:320px;overflow-y:auto;margin:10px auto;padding:4px;border-radius:12px;border:1px solid rgba(255,255,255,.2)}
+.plist{list-style:none;padding:0;margin:0;}
+.plist li{padding:8px 10px;border-radius:10px;cursor:pointer;transition:all .2s ease;}
 .plist li.active{background:rgba(0,191,255,.28)}
-.status{margin-top:8px;color:#7CFC00;text-align:center}
-.status.warn{color:#ffd166}
 .plist::-webkit-scrollbar{width:10px}
 .plist::-webkit-scrollbar-track{background:rgba(255,255,255,.08);border-radius:10px}
 .plist::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--accent),#00bcd4);border-radius:10px}
@@ -78,7 +66,7 @@ audio{width:100%;max-width:720px;margin:8px auto;display:block;border-radius:12p
 #carouselShell{position:relative;width:100%;padding-top:56.25%;border-radius:14px;overflow:hidden;background:#000;box-shadow:0 12px 28px rgba(0,0,0,.35)}
 #ytMain{position:absolute;top:0;left:0;width:100%;height:100%}
 .thumbStrip{max-width:100%;margin:10px auto 0;padding:10px;display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory}
-.thumb{position:relative;flex:0 0 auto;width:210px;border-radius:12px;overflow:hidden;scroll-snap-align:start;box-shadow:0 8px 22px rgba(0,0,0,.35);cursor:pointer}
+.thumb{position:relative;flex:0 0 auto;width:220px;border-radius:12px;overflow:hidden;scroll-snap-align:start;box-shadow:0 8px 22px rgba(0,0,0,.35);cursor:pointer}
 .thumb img{display:block;width:100%;filter:brightness(.9);transition:transform .18s ease, filter .18s ease}
 .thumb:hover img{transform:scale(1.03);filter:brightness(1)}
 .thumb.active{outline:3px solid var(--accent);outline-offset:-3px}
@@ -93,10 +81,9 @@ audio{width:100%;max-width:720px;margin:8px auto;display:block;border-radius:12p
 <div class="bg-mark">Tropical Flow RadioTV</div>
 
 <header>
-  <h1>🌴 Tropical Flow TV 📺 Radio – VIP</h1>
+  <h1>🌴 Tropical Flow TV 📺 Radio Cristiana – VIP</h1>
 </header>
 
-<!-- Barra social arriba -->
 <div class="top-social">
   <div class="social">
     <a class="whatsapp" href="https://wa.me/19399029695" target="_blank">WhatsApp</a>
@@ -113,26 +100,30 @@ audio{width:100%;max-width:720px;margin:8px auto;display:block;border-radius:12p
   <section id="radio">
     <h2>🎧 Tropical Flow TV Radio – Nueva Vida 24/7</h2>
     <audio id="radioAudio" controls autoplay>
-      <source src="https://streamingv2.zeno.fm/3t0t6r6f7nruv" type="audio/mpeg">
+      <source src="https://live2.zeno.fm/rx2rz3ht3druv" type="audio/mpeg">
       Tu navegador no soporta audio HTML5.
     </audio>
-    <p class="hint">Si no escuchas, abre la radio en <a href="https://www.nuevavida.com" target="_blank">nueva pestaña</a>.</p>
   </section>
 
-  <!-- MINI PLAYLIST -->
+  <!-- PLAYLIST CANCIONES CRISTIANAS -->
   <section id="playlist">
-    <h2>🎵 Canciones cristianas</h2>
-    <ul class="plist" id="plist">
-      <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">Canción 1</li>
-      <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">Canción 2</li>
-      <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3">Canción 3</li>
-    </ul>
-    <audio id="player" controls></audio>
+    <h2>🎵 Canciones Cristianas</h2>
+    <div id="playlistWrap">
+      <ul class="plist" id="plist">
+        <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">Canción Cristiana 1</li>
+        <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">Canción Cristiana 2</li>
+        <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3">Canción Cristiana 3</li>
+        <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3">Canción Cristiana 4</li>
+        <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3">Canción Cristiana 5</li>
+        <!-- Agrega más canciones aquí -->
+      </ul>
+    </div>
+    <audio id="songPlayer" controls style="width:100%;margin-top:10px;"></audio>
   </section>
 
   <!-- CARRUSEL FULL WIDTH -->
   <section id="videos">
-    <h2>🎞 Videos de adoración</h2>
+    <h2>🎞 Videos Cristianos de Adoración</h2>
     <div id="carouselShell">
       <div id="ytMain"></div>
     </div>
@@ -148,28 +139,30 @@ audio{width:100%;max-width:720px;margin:8px auto;display:block;border-radius:12p
 
 </div>
 
-<footer>© <span id="year"></span> Tropical Flow TV📺 Radio — Todos los derechos reservados</footer>
+<footer>© <span id="year"></span> Tropical Flow TV📺 Radio Cristiana — Todos los derechos reservados</footer>
 
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-/* ===== MINI PLAYLIST ===== */
-const plist=document.getElementById('plist');
-const player=document.getElementById('player');
+/* ===== PLAYLIST ===== */
+const plist = document.getElementById('plist');
+const songPlayer = document.getElementById('songPlayer');
 plist.querySelectorAll('li').forEach(li=>{
-  li.onclick=()=>{
-    plist.querySelectorAll('li').forEach(x=>x.classList.remove('active'));
+  li.onclick = ()=>{
+    plist.querySelectorAll('li').forEach(el=>el.classList.remove('active'));
     li.classList.add('active');
-    player.src=li.dataset.src;
-    player.play();
+    songPlayer.src = li.dataset.src;
+    songPlayer.play();
   }
 });
 
 /* ===== CARRUSEL FULL WIDTH ===== */
 const CAROUSEL_IDS = [
   "3Uo0JAUWijM","rD8bGlob__I","tpi8zLE3Kqw","RBE8A9rAj8Y","XYe0ZHVvVig",
-  "1Q8fG0TtVAY","zqJ3rVXcq4s","7RGt6xMhLOI","6fSFFq1nvq4","nYzqR-TJeAA"
-]; 
+  "5DjpH2N2NkM","M5qgEB0oi5Y","u3uD3i5X3Lc","G4b1Xrjv0RQ","ZtHcA6xq6gA",
+  "Y1rVg5F8mQk","nYl2i7sB6rM","A9gF8pQ1cDE","Xz0J8o1mR0k","F7b8uK2pH1I",
+  "2LJj6QvV0aM","3t8I2FvY7qE","4HqJ7KkU1sD","5SxP9LvR2tE","6FdH8GyU3vA"
+];
 let cIndex=0, cPlayer=null;
 
 function buildThumbs(){
@@ -206,22 +199,12 @@ function createCarousel(){
   document.getElementById('cToggle').onclick = ()=>{ const s=cPlayer.getPlayerState?.(); if(s===YT.PlayerState.PLAYING)cPlayer.pauseVideo(); else{ pauseAllExcept('yt'); cPlayer.playVideo(); } };
   document.getElementById('cFs').onclick = ()=>{ if(document.fullscreenElement) document.exitFullscreen?.(); else document.getElementById('carouselShell')?.requestFullscreen?.(); };
 }
+function loadCarousel(play){ cPlayer.loadVideoById(CAROUSEL_IDS[cIndex]); markActive(); updateCTitle(); if(!play) cPlayer.pauseVideo?.(); }
+function pauseAllExcept(kind){ /* Radio sigue sonando */ }
 
-/* Autoscroll carrusel cada 10 seg */
-function autoNextC(){ nextC(); setTimeout(autoNextC,10000); }
-
-/* Cargar video */
-function loadCarousel(play){ 
-  cPlayer.loadVideoById(CAROUSEL_IDS[cIndex]); 
-  markActive(); updateCTitle(); 
-  if(!play) cPlayer.pauseVideo?.(); 
-}
-function pauseAllExcept(kind){ /* Radio HTML5 no se pausa */ }
-
-/* Boot YT */
 (function bootYT(){
   let started=false;
-  function start(){ if(started)return; started=true; createCarousel(); autoNextC(); }
+  function start(){ if(started)return; started=true; createCarousel(); }
   if(window.YT && window.YT.Player) start();
   const prev=window.onYouTubeIframeAPIReady;
   window.onYouTubeIframeAPIReady=function(){ if(typeof prev==='function')prev(); start(); };

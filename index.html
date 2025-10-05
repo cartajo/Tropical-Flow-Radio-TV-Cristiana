@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tropical Flow Radio📺 Cristiana</title>
+<title>Tropical Flow Radio📺 Cristiana </title>
 <meta name="description" content="Tropical Flow Radio📺 Cristiana — Música y Palabra 24/7.">
 
 <style>
@@ -34,12 +34,13 @@ h2{ margin:0 0 12px; text-align:center }
 .controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:10px}
 
 /* RADIO 24/7 Nueva Vida */
+#radioCard{position:relative;max-width:950px;margin:0 auto;padding:14px;border-radius:14px;background:var(--card);backdrop-filter:blur(4px)}
 #radioAudio{width:100%; outline:none; border-radius:12px;}
 
 /* PLAYLIST SCROLL */
 #playlistWrap{
   max-height:350px; 
-  overflow-y:scroll; 
+  overflow-y:scroll; /* Scroll vertical */
   margin:10px auto;
   padding:8px;
   border-radius:12px;
@@ -82,7 +83,7 @@ h2{ margin:0 0 12px; text-align:center }
 <div class="bg-mark">Tropical Flow Radio📺</div>
 
 <header>
-  <h1>🌴 Tropical Flow Radio📺 Cristiana</h1>
+  <h1>🌴 Tropical Flow Radio📺 Cristiana 🌴 </h1>
 </header>
 
 <div class="top-social">
@@ -97,11 +98,11 @@ h2{ margin:0 0 12px; text-align:center }
 
 <div class="wrap">
 
-  <!-- RADIO 24/7 -->
+  <!-- RADIO 24/7 Nueva Vida -->
   <section id="radio">
-    <h2>🎧 Tropical Flow Radio📺 – Nueva Vida 24/7</h2>
-    <audio id="radioAudio" controls autoplay playsinline>
-      <source src="https://streaming.zeno.fm/rx2rz3ht3druv" type="audio/mpeg">
+    <h2>🎧 Tropical Flow Radio📺 Cristiana 24/7 🎧</h2>
+    <audio id="radioAudio" controls autoplay>
+      <source src="https://live2.zeno.fm/rx2rz3ht3druv" type="audio/mpeg">
       Tu navegador no soporta audio HTML5.
     </audio>
     <div id="listeners">Oyentes en vivo: <span id="listenerCount">0</span></div>
@@ -117,6 +118,7 @@ h2{ margin:0 0 12px; text-align:center }
         <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3">Canción Cristiana 3</li>
         <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3">Canción Cristiana 4</li>
         <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3">Canción Cristiana 5</li>
+        <!-- Puedes añadir muchas más y usar el scroll down -->
       </ul>
     </div>
     <audio id="songPlayer" controls style="width:100%;margin-top:10px;"></audio>
@@ -138,7 +140,7 @@ h2{ margin:0 0 12px; text-align:center }
     <div id="thumbs" class="thumbStrip"></div>
   </section>
 
-</div> <!-- cierre wrap -->
+</div>
 
 <footer>© <span id="year"></span> Tropical Flow Radio📺 Cristiana — Todos los derechos reservados</footer>
 
@@ -153,26 +155,23 @@ function updateListeners(){
 setInterval(updateListeners,5000);
 updateListeners();
 
-/* ===== RADIO 24/7 y PLAYLIST SIN MEZCLARSE ===== */
-const radio = document.getElementById('radioAudio');
-const songPlayer = document.getElementById('songPlayer');
+/* ===== PLAYLIST Y AUTODJ ===== */
 const plist = document.getElementById('plist');
-const songs = Array.from(plist.querySelectorAll('li'));
+const songPlayer = document.getElementById('songPlayer');
 let currentSong = 0;
-
+const songs = Array.from(plist.querySelectorAll('li'));
 function playSong(i){
-  radio.pause(); // Pausa radio si inicia canción
   songs.forEach(s=>s.classList.remove('active'));
   songs[i].classList.add('active');
   songPlayer.src = songs[i].dataset.src;
-  songPlayer.play().catch(()=>{}); 
+  songPlayer.play();
   currentSong = i;
 }
 songs.forEach((li,i)=>li.onclick = ()=>playSong(i));
-songPlayer.onended = ()=>{ songPlayer.pause(); radio.play().catch(()=>{}); };
-playSong(0); // inicializa playlist en standby
+songPlayer.onended = ()=>playSong((currentSong+1)%songs.length);
+playSong(0);
 
-/* ===== CARRUSEL YOUTUBE (No pausa radio) ===== */
+/* ===== CARRUSEL FULL WIDTH ===== */
 const CAROUSEL_IDS = [
   "3Uo0JAUWijM","rD8bGlob__I","tpi8zLE3Kqw","RBE8A9rAj8Y","XYe0ZHVvVig",
   "5DjpH2N2NkM","M5qgEB0oi5Y","u3uD3i5X3Lc","G4b1Xrjv0RQ","ZtHcA6xq6gA",
@@ -203,6 +202,7 @@ function createCarousel(){
     events:{
       onReady:()=>{ updateCTitle(); },
       onStateChange:e=>{
+        if(e.data===YT.PlayerState.PLAYING){}
         if(e.data===YT.PlayerState.ENDED){ nextC(); }
       }
     }
@@ -225,4 +225,3 @@ function loadCarousel(play){ cPlayer.loadVideoById(CAROUSEL_IDS[cIndex]); markAc
 </script>
 </body>
 </html>
-

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tropical Flow Radio📺 Cristiana Ultra PRO</title>
+<title>Tropical Flow Radio📺 Cristiana PRO</title>
 <meta name="description" content="Tropical Flow Radio📺 Cristiana — Música y Palabra 24/7.">
 
 <style>
@@ -83,7 +83,7 @@ h2{ margin:0 0 12px; text-align:center }
 <div class="bg-mark">Tropical Flow Radio📺</div>
 
 <header>
-  <h1>🌴 Tropical Flow Radio📺 Cristiana Ultra PRO</h1>
+  <h1>🌴 Tropical Flow Radio📺 Cristiana PRO</h1>
 </header>
 
 <div class="top-social">
@@ -152,7 +152,7 @@ function updateListeners(){document.getElementById('listenerCount').textContent 
 setInterval(updateListeners,5000);
 updateListeners();
 
-/* RADIO + AUTODJ INDEPENDIENTES */
+/* RADIO + AUTODJ */
 const radio = document.getElementById('radioAudio');
 const radioToggle = document.getElementById('radioToggle');
 const songPlayer = document.getElementById('songPlayer');
@@ -161,7 +161,7 @@ const songs = Array.from(plist.querySelectorAll('li'));
 let currentSong = 0;
 
 function playSong(i){
-  radio.pause(); // Pausa radio solo mientras suena canción
+  radio.pause(); // pausa radio al iniciar canción
   songs.forEach(s=>s.classList.remove('active'));
   songs[i].classList.add('active');
   songPlayer.src = songs[i].dataset.src;
@@ -171,8 +171,8 @@ function playSong(i){
 songs.forEach((li,i)=>li.onclick=()=>playSong(i));
 
 songPlayer.onended = ()=>{
+  radio.play().catch(()=>{}); 
   songPlayer.pause();
-  radio.play().catch(()=>{}); // Reanuda radio al terminar la canción
 };
 
 radioToggle.onclick = ()=>{
@@ -180,7 +180,7 @@ radioToggle.onclick = ()=>{
   else radio.pause();
 };
 
-/* CARRUSEL YOUTUBE INDEPENDIENTE */
+/* CARRUSEL YOUTUBE */
 const CAROUSEL_IDS = ["3Uo0JAUWijM","rD8bGlob__I","tpi8zLE3Kqw","RBE8A9rAj8Y","XYe0ZHVvVig"];
 let cIndex=0, cPlayer=null;
 
@@ -227,5 +227,4 @@ function loadCarousel(play){ cPlayer.loadVideoById(CAROUSEL_IDS[cIndex]); markAc
 </script>
 </body>
 </html>
-
 

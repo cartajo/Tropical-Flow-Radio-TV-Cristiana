@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tropical Flow Radio📺 Cristiana </title>
+<title>Tropical Flow TV 📺 Radio Cristiana – EXTREMO</title>
 <meta name="description" content="Tropical Flow TV Radio Cristiana — Música y Palabra 24/7.">
 
 <style>
@@ -38,13 +38,28 @@ h2{ margin:0 0 12px; text-align:center }
 #radioAudio{width:100%; outline:none; border-radius:12px;}
 
 /* PLAYLIST SCROLL */
-#playlistWrap{max-height:320px;overflow-y:auto;margin:10px auto;padding:4px;border-radius:12px;border:1px solid rgba(255,255,255,.2)}
+#playlistWrap{
+  max-height:350px; 
+  overflow-y:scroll; /* Scroll vertical */
+  margin:10px auto;
+  padding:8px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.3);
+  background:rgba(0,0,0,.25);
+}
 .plist{list-style:none;padding:0;margin:0;}
-.plist li{padding:8px 10px;border-radius:10px;cursor:pointer;transition:all .2s ease;}
+.plist li{
+  padding:8px 12px;
+  border-radius:10px;
+  cursor:pointer;
+  transition:all .2s ease;
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
 .plist li.active{background:rgba(0,191,255,.28)}
-.plist::-webkit-scrollbar{width:10px}
-.plist::-webkit-scrollbar-track{background:rgba(255,255,255,.08);border-radius:10px}
+.plist::-webkit-scrollbar{width:12px}
+.plist::-webkit-scrollbar-track{background:rgba(255,255,255,.05);border-radius:10px}
 .plist::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--accent),#00bcd4);border-radius:10px}
+.plist{scrollbar-width:thin;scrollbar-color:#00bcd4 rgba(255,255,255,.08)}
 
 /* CARRUSEL VIDEO FULL WIDTH */
 #carouselShell{position:relative;width:100%;padding-top:56.25%;border-radius:14px;overflow:hidden;background:#000;box-shadow:0 12px 28px rgba(0,0,0,.35)}
@@ -65,10 +80,10 @@ h2{ margin:0 0 12px; text-align:center }
 <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 <body>
-<div class="bg-mark">Tropical Flow Radio📺</div>
+<div class="bg-mark">Tropical Flow RadioTV</div>
 
 <header>
-  <h1>🌴 Tropical Flow TV 📺 Radio Cristiana </h1>
+  <h1>🌴 Tropical Flow TV 📺 Radio Cristiana – EXTREMO</h1>
 </header>
 
 <div class="top-social">
@@ -103,7 +118,7 @@ h2{ margin:0 0 12px; text-align:center }
         <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3">Canción Cristiana 3</li>
         <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3">Canción Cristiana 4</li>
         <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3">Canción Cristiana 5</li>
-        <!-- Añade más canciones y se reproducirán automáticamente -->
+        <!-- Puedes añadir muchas más y usar el scroll down -->
       </ul>
     </div>
     <audio id="songPlayer" controls style="width:100%;margin-top:10px;"></audio>
@@ -135,7 +150,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
 /* ===== CONTADOR DE OYENTES SIMULADO ===== */
 function updateListeners(){
   const countEl=document.getElementById('listenerCount');
-  countEl.textContent = Math.floor(Math.random()*120 + 30); // Simula oyentes
+  countEl.textContent = Math.floor(Math.random()*120 + 30);
 }
 setInterval(updateListeners,5000);
 updateListeners();

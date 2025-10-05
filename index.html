@@ -172,7 +172,7 @@ songs.forEach((li,i)=>li.onclick = ()=>playSong(i));
 songPlayer.onended = ()=>{ songPlayer.pause(); radio.play().catch(()=>{}); };
 playSong(0); // inicializa playlist en standby
 
-/* ===== CARRUSEL YOUTUBE ===== */
+/* ===== CARRUSEL YOUTUBE (No pausa radio) ===== */
 const CAROUSEL_IDS = [
   "3Uo0JAUWijM","rD8bGlob__I","tpi8zLE3Kqw","RBE8A9rAj8Y","XYe0ZHVvVig",
   "5DjpH2N2NkM","M5qgEB0oi5Y","u3uD3i5X3Lc","G4b1Xrjv0RQ","ZtHcA6xq6gA",

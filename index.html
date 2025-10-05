@@ -63,30 +63,67 @@ h2{ margin:0 0 12px; text-align:center }
 #radioMini{display:flex;gap:10px;justify-content:center;align-items:center}
 #radioAudio{width:100%; outline:none; border-radius:12px;}
 
-/* PLAYLIST */
-audio{width:100%;max-width:720px;margin:8px auto;display:block;border-radius:12px}
-.plist{list-style:none;margin:10px auto 0;padding:0;max-height:340px;overflow:auto}
-.plist li{padding:8px 10px;border-radius:10px;cursor:pointer}
-.plist li.active{background:rgba(0,191,255,.28)}
-.status{margin-top:8px;color:#7CFC00;text-align:center}
-.status.warn{color:#ffd166}
-.plist::-webkit-scrollbar{width:10px}
-.plist::-webkit-scrollbar-track{background:rgba(255,255,255,.08);border-radius:10px}
-.plist::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--accent),#00bcd4);border-radius:10px}
-.plist{scrollbar-width:thin;scrollbar-color:#00bcd4 rgba(255,255,255,.08)}
-
 /* CARRUSEL VIDEO FULL WIDTH */
-#carouselShell{position:relative;width:100%;padding-top:56.25%;border-radius:14px;overflow:hidden;background:#000;box-shadow:0 12px 28px rgba(0,0,0,.35)}
-#ytMain{position:absolute;top:0;left:0;width:100%;height:100%}
-.thumbStrip{max-width:100%;margin:10px auto 0;padding:10px;display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory}
-.thumb{position:relative;flex:0 0 auto;width:210px;border-radius:12px;overflow:hidden;scroll-snap-align:start;box-shadow:0 8px 22px rgba(0,0,0,.35);cursor:pointer}
-.thumb img{display:block;width:100%;filter:brightness(.9);transition:transform .18s ease, filter .18s ease}
+#carouselShell{
+  position:relative;
+  width:100vw;
+  height:60vh; /* altura del carrusel */
+  border-radius:0;
+  overflow:hidden;
+  background:#000;
+}
+#ytMain{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+}
+.thumbStrip{
+  max-width:100%;
+  margin:10px auto 0;
+  padding:10px;
+  display:flex;
+  gap:12px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+}
+.thumb{
+  position:relative;
+  flex:0 0 auto;
+  width:210px;
+  border-radius:12px;
+  overflow:hidden;
+  scroll-snap-align:start;
+  box-shadow:0 8px 22px rgba(0,0,0,.35);
+  cursor:pointer;
+}
+.thumb img{
+  display:block;
+  width:100%;
+  filter:brightness(.9);
+  transition:transform .18s ease, filter .18s ease;
+}
 .thumb:hover img{transform:scale(1.03);filter:brightness(1)}
 .thumb.active{outline:3px solid var(--accent);outline-offset:-3px}
-.playOverlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(transparent,rgba(0,0,0,.32))}
-.playBtn{width:54px;height:54px;border-radius:50%;background:rgba(0,0,0,.66);border:2px solid rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center}
-.playBtn:before{content:"";border-left:18px solid #fff;border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:4px}
-
+.playOverlay{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(transparent,rgba(0,0,0,.32));
+}
+.playBtn{
+  width:54px;height:54px;border-radius:50%;
+  background:rgba(0,0,0,.66);
+  border:2px solid rgba(255,255,255,.9);
+  display:flex;align-items:center;justify-content:center;
+}
+.playBtn:before{
+  content:"";
+  border-left:18px solid #fff;
+  border-top:10px solid transparent;
+  border-bottom:10px solid transparent;
+  margin-left:4px;
+}
 </style>
 
 <script src="https://www.youtube.com/iframe_api"></script>
@@ -98,13 +135,13 @@ audio{width:100%;max-width:720px;margin:8px auto;display:block;border-radius:12p
   <h1>🌴 Tropical Flow TV 📺 Radio – VIP</h1>
 </header>
 
-<!-- 🔼 Barra social arriba -->
+<!-- Barra social -->
 <div class="top-social">
   <div class="social">
     <a class="whatsapp" href="https://wa.me/19399029695" target="_blank">WhatsApp</a>
-    <a class="youtube"  href="https://www.youtube.com/@TFTvpoweredbyworldm8780" target="_blank">YouTube</a>
+    <a class="youtube" href="https://www.youtube.com/@TFTvpoweredbyworldm8780" target="_blank">YouTube</a>
     <a class="facebook" href="https://www.facebook.com/profile.php?id=61555653663073" target="_blank">Facebook</a>
-    <a class="paypal"   href="https://www.paypal.com/donate/?business=cartajoffice1@gmail.com&currency_code=USD" target="_blank">🎧 Donar vía PayPal</a>
+    <a class="paypal" href="https://www.paypal.com/donate/?business=cartajoffice1@gmail.com&currency_code=USD" target="_blank">🎧 Donar vía PayPal</a>
     <a class="athmovil" href="https://www.athmovil.com/cartajo" target="_blank">Donar ATH Móvil</a>
   </div>
 </div>
@@ -115,7 +152,7 @@ audio{width:100%;max-width:720px;margin:8px auto;display:block;border-radius:12p
   <section id="radio">
     <h2>🎧 Tropical Flow TV Radio – Nueva Vida 24/7</h2>
     <audio id="radioAudio" controls autoplay>
-      <source src="https://live2.zeno.fm/your-stream-id?zs=pr" type="audio/mpeg">
+      <source src="https://nuevavida.zeno.fm/live" type="audio/mpeg">
       Tu navegador no soporta audio HTML5.
     </audio>
     <p class="hint">Si no escuchas, abre la radio en <a href="https://www.nuevavida.com" target="_blank">nueva pestaña</a>.</p>
@@ -146,7 +183,8 @@ document.getElementById('year').textContent = new Date().getFullYear();
 
 /* ===== CARRUSEL FULL WIDTH ===== */
 const CAROUSEL_IDS = [
-  "3Uo0JAUWijM","rD8bGlob__I","tpi8zLE3Kqw","RBE8A9rAj8Y","XYe0ZHVvVig"
+  "3Uo0JAUWijM","rD8bGlob__I","tpi8zLE3Kqw","RBE8A9rAj8Y","XYe0ZHVvVig",
+  "sJwzH_GU9Ts","1MavC5vtdrI","G3o2uD6W0tA","VJ2RC0I3qLg","Lk7TQvF2Kzo"
 ];
 let cIndex=0, cPlayer=null;
 

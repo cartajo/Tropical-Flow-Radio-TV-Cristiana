@@ -257,3 +257,44 @@ function loadCarousel(play){ cPlayer.loadVideoById(CAROUSEL_IDS[cIndex]); markAc
       <p class="hint">Si no escuchas, pulsa <b>Abrir en pestaña</b> (evita bloqueos del navegador).</p>
     </div>
   </section>
+
+/* ========== HUB: Pausa cruzada (corte duro radio) ========== */
+const RADIO_URL = "https://tropicalflow.listen2myshow.com/?autoplay=1";
+function getRadioFrame(){ return document.getElementById('radioFrame'); }
+function radioStart(){
+  const f=getRadioFrame();
+  if (f && (f.src==="about:blank" || !f.src)) f.src=RADIO_URL;
+}
+function radioStopHard(){ const f=getRadioFrame(); if (f) f.src="about:blank"; }
+
+function getPl(){ return document.getElementById('plAudio'); }
+function getCarousel(){ return window._ytCarousel || null; }
+function getPromo(){ return window._ytPromo || null; }
+
+function pauseAllExcept(kind){
+  try{
+    if (kind!=='radio'){ radioStopHard(); } // silencia radio (iframe externo)
+    if (kind!=='playlist'){ const a=getPl(); if (a && !a.paused) a.pause(); }
+    if (kind!=='yt'){ const c=getCarousel(); if (c?.getPlayerState?.()===YT.PlayerState.PLAYING) c.pauseVideo(); }
+    if (kind!=='promo'){ const p=getPromo(); if (p?.getPlayerState?.()===YT.PlayerState.PLAYING) p.pauseVideo(); }
+  }catch(e){}
+}
+
+/* ========== RADIO (minimizada + abrir) ========== */
+(function(){
+  const viewport  = document.getElementById('radioViewport');
+  const openBtn   = document.getElementById('openPlayer');
+  const tabBtn    = document.getElementById('openTab');
+
+  function show(){
+    viewport.style.display='block';
+    radioStart();
+    pauseAllExcept('radio');
+  }
+  function hide(){ viewport.style.display='none'; }
+
+  openBtn.onclick = ()=> (viewport.style.display==='none' ? show() : hide());
+  tabBtn.onclick  = ()=> window.open("https://tropicalflow.listen2myshow.com","_blank");
+
+  hide(); // entra minimizada
+})();

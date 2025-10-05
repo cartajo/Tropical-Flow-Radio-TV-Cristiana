@@ -34,13 +34,12 @@ h2{ margin:0 0 12px; text-align:center }
 .controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:10px}
 
 /* RADIO 24/7 Nueva Vida */
-#radioCard{position:relative;max-width:950px;margin:0 auto;padding:14px;border-radius:14px;background:var(--card);backdrop-filter:blur(4px)}
 #radioAudio{width:100%; outline:none; border-radius:12px;}
 
 /* PLAYLIST SCROLL */
 #playlistWrap{
   max-height:350px; 
-  overflow-y:scroll; /* Scroll vertical */
+  overflow-y:scroll; 
   margin:10px auto;
   padding:8px;
   border-radius:12px;
@@ -98,11 +97,10 @@ h2{ margin:0 0 12px; text-align:center }
 
 <div class="wrap">
 
-  <!-- RADIO 24/7 NUEVA VIDA -->
+  <!-- RADIO 24/7 -->
   <section id="radio">
     <h2>🎧 Tropical Flow Radio📺 – Nueva Vida 24/7</h2>
 
-    <!-- BOTON PARA AUTOPLAY -->
     <div style="text-align:center;margin:10px 0;">
       <button class="btn" onclick="playRadio()">▶ Escuchar Radio</button>
     </div>
@@ -146,18 +144,12 @@ h2{ margin:0 0 12px; text-align:center }
     <div id="thumbs" class="thumbStrip"></div>
   </section>
 
-</div>
+</div> <!-- cierre wrap -->
 
 <footer>© <span id="year"></span> Tropical Flow Radio📺 Cristiana — Todos los derechos reservados</footer>
 
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
-
-/* ==== FUNCION BOTON ESCUCHAR RADIO ==== */
-function playRadio(){
-  const radio = document.getElementById('radioAudio');
-  radio.play().catch(err=>console.log("Error autoplay:",err));
-}
 
 /* ==== CONTADOR DE OYENTES SIMULADO ==== */
 function updateListeners(){
@@ -167,17 +159,24 @@ function updateListeners(){
 setInterval(updateListeners,5000);
 updateListeners();
 
-/* ==== PLAYLIST AUTO DJ ==== */
-const plist = document.getElementById('plist');
+/* ==== RADIO Y PLAYLIST NO SE MEZCLAN ==== */
+const radio = document.getElementById('radioAudio');
 const songPlayer = document.getElementById('songPlayer');
-let currentSong = 0;
+const plist = document.getElementById('plist');
 const songs = Array.from(plist.querySelectorAll('li'));
+let currentSong = 0;
+
+function playRadio(){
+  songPlayer.pause();
+  radio.play().catch(err=>console.log(err));
+}
 
 function playSong(i){
+  radio.pause();
   songs.forEach(s => s.classList.remove('active'));
   songs[i].classList.add('active');
   songPlayer.src = songs[i].dataset.src;
-  songPlayer.play().catch(err=>console.log("Error autoplay song:",err));
+  songPlayer.play().catch(err=>console.log(err));
   currentSong = i;
 }
 

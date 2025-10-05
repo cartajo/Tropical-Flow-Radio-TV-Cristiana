@@ -63,6 +63,17 @@ h2{ margin:0 0 12px; text-align:center }
 #radioMini{display:flex;gap:10px;justify-content:center;align-items:center}
 #radioAudio{width:100%; outline:none; border-radius:12px;}
 
+/* MINI PLAYLIST */
+audio{width:100%;max-width:720px;margin:8px auto;display:block;border-radius:12px}
+.plist{list-style:none;margin:10px auto 0;padding:0;max-height:220px;overflow:auto}
+.plist li{padding:8px 10px;border-radius:10px;cursor:pointer}
+.plist li.active{background:rgba(0,191,255,.28)}
+.status{margin-top:8px;color:#7CFC00;text-align:center}
+.status.warn{color:#ffd166}
+.plist::-webkit-scrollbar{width:10px}
+.plist::-webkit-scrollbar-track{background:rgba(255,255,255,.08);border-radius:10px}
+.plist::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--accent),#00bcd4);border-radius:10px}
+
 /* CARRUSEL VIDEO FULL WIDTH */
 #carouselShell{position:relative;width:100%;padding-top:56.25%;border-radius:14px;overflow:hidden;background:#000;box-shadow:0 12px 28px rgba(0,0,0,.35)}
 #ytMain{position:absolute;top:0;left:0;width:100%;height:100%}
@@ -85,7 +96,7 @@ h2{ margin:0 0 12px; text-align:center }
   <h1>🌴 Tropical Flow TV 📺 Radio – VIP</h1>
 </header>
 
-<!-- 🔼 Barra social arriba -->
+<!-- Barra social arriba -->
 <div class="top-social">
   <div class="social">
     <a class="whatsapp" href="https://wa.me/19399029695" target="_blank">WhatsApp</a>
@@ -106,6 +117,17 @@ h2{ margin:0 0 12px; text-align:center }
       Tu navegador no soporta audio HTML5.
     </audio>
     <p class="hint">Si no escuchas, abre la radio en <a href="https://www.nuevavida.com" target="_blank">nueva pestaña</a>.</p>
+  </section>
+
+  <!-- MINI PLAYLIST -->
+  <section id="playlist">
+    <h2>🎵 Canciones cristianas</h2>
+    <ul class="plist" id="plist">
+      <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">Canción 1</li>
+      <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">Canción 2</li>
+      <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3">Canción 3</li>
+    </ul>
+    <audio id="player" controls></audio>
   </section>
 
   <!-- CARRUSEL FULL WIDTH -->
@@ -131,11 +153,23 @@ h2{ margin:0 0 12px; text-align:center }
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
+/* ===== MINI PLAYLIST ===== */
+const plist=document.getElementById('plist');
+const player=document.getElementById('player');
+plist.querySelectorAll('li').forEach(li=>{
+  li.onclick=()=>{
+    plist.querySelectorAll('li').forEach(x=>x.classList.remove('active'));
+    li.classList.add('active');
+    player.src=li.dataset.src;
+    player.play();
+  }
+});
+
 /* ===== CARRUSEL FULL WIDTH ===== */
 const CAROUSEL_IDS = [
   "3Uo0JAUWijM","rD8bGlob__I","tpi8zLE3Kqw","RBE8A9rAj8Y","XYe0ZHVvVig",
   "1Q8fG0TtVAY","zqJ3rVXcq4s","7RGt6xMhLOI","6fSFFq1nvq4","nYzqR-TJeAA"
-]; // Muchos videos cristianos
+]; 
 let cIndex=0, cPlayer=null;
 
 function buildThumbs(){
@@ -172,13 +206,22 @@ function createCarousel(){
   document.getElementById('cToggle').onclick = ()=>{ const s=cPlayer.getPlayerState?.(); if(s===YT.PlayerState.PLAYING)cPlayer.pauseVideo(); else{ pauseAllExcept('yt'); cPlayer.playVideo(); } };
   document.getElementById('cFs').onclick = ()=>{ if(document.fullscreenElement) document.exitFullscreen?.(); else document.getElementById('carouselShell')?.requestFullscreen?.(); };
 }
-function loadCarousel(play){ cPlayer.loadVideoById(CAROUSEL_IDS[cIndex]); markActive(); updateCTitle(); if(!play) cPlayer.pauseVideo?.(); }
-function pauseAllExcept(kind){ /* No pause radio porque es HTML5 audio */ }
+
+/* Autoscroll carrusel cada 10 seg */
+function autoNextC(){ nextC(); setTimeout(autoNextC,10000); }
+
+/* Cargar video */
+function loadCarousel(play){ 
+  cPlayer.loadVideoById(CAROUSEL_IDS[cIndex]); 
+  markActive(); updateCTitle(); 
+  if(!play) cPlayer.pauseVideo?.(); 
+}
+function pauseAllExcept(kind){ /* Radio HTML5 no se pausa */ }
 
 /* Boot YT */
 (function bootYT(){
   let started=false;
-  function start(){ if(started)return; started=true; createCarousel(); }
+  function start(){ if(started)return; started=true; createCarousel(); autoNextC(); }
   if(window.YT && window.YT.Player) start();
   const prev=window.onYouTubeIframeAPIReady;
   window.onYouTubeIframeAPIReady=function(){ if(typeof prev==='function')prev(); start(); };

@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Tropical Flow TV 📺 Radio – VIP</title>
+<title>Tropical Flow TV 📺 Radio Cristiana – VIP</title>
 <meta name="description" content="Tropical Flow TV Radio — Música y Palabra 24/7.">
 
 <style>
 :root{
   --accent:#00e0ff; --accent2:#2dd4bf; --warn:#fbbf24;
   --glass:rgba(0,0,0,.62); --panel:rgba(255,255,255,.08);
-  --card:rgba(0,0,0,.60); --maxw:1100px;
+  --card:rgba(0,0,0,.60); --maxw:1200px;
 }
 *{box-sizing:border-box}
 html,body{margin:0}
@@ -64,66 +64,16 @@ h2{ margin:0 0 12px; text-align:center }
 #radioAudio{width:100%; outline:none; border-radius:12px;}
 
 /* CARRUSEL VIDEO FULL WIDTH */
-#carouselShell{
-  position:relative;
-  width:100vw;
-  height:60vh; /* altura del carrusel */
-  border-radius:0;
-  overflow:hidden;
-  background:#000;
-}
-#ytMain{
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-}
-.thumbStrip{
-  max-width:100%;
-  margin:10px auto 0;
-  padding:10px;
-  display:flex;
-  gap:12px;
-  overflow-x:auto;
-  scroll-snap-type:x mandatory;
-}
-.thumb{
-  position:relative;
-  flex:0 0 auto;
-  width:210px;
-  border-radius:12px;
-  overflow:hidden;
-  scroll-snap-align:start;
-  box-shadow:0 8px 22px rgba(0,0,0,.35);
-  cursor:pointer;
-}
-.thumb img{
-  display:block;
-  width:100%;
-  filter:brightness(.9);
-  transition:transform .18s ease, filter .18s ease;
-}
+#carouselShell{position:relative;width:100%;padding-top:56.25%;border-radius:14px;overflow:hidden;background:#000;box-shadow:0 12px 28px rgba(0,0,0,.35)}
+#ytMain{position:absolute;top:0;left:0;width:100%;height:100%}
+.thumbStrip{max-width:100%;margin:10px auto 0;padding:10px;display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory}
+.thumb{position:relative;flex:0 0 auto;width:240px;border-radius:12px;overflow:hidden;scroll-snap-align:start;box-shadow:0 8px 22px rgba(0,0,0,.35);cursor:pointer}
+.thumb img{display:block;width:100%;filter:brightness(.9);transition:transform .18s ease, filter .18s ease}
 .thumb:hover img{transform:scale(1.03);filter:brightness(1)}
 .thumb.active{outline:3px solid var(--accent);outline-offset:-3px}
-.playOverlay{
-  position:absolute;inset:0;
-  display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(transparent,rgba(0,0,0,.32));
-}
-.playBtn{
-  width:54px;height:54px;border-radius:50%;
-  background:rgba(0,0,0,.66);
-  border:2px solid rgba(255,255,255,.9);
-  display:flex;align-items:center;justify-content:center;
-}
-.playBtn:before{
-  content:"";
-  border-left:18px solid #fff;
-  border-top:10px solid transparent;
-  border-bottom:10px solid transparent;
-  margin-left:4px;
-}
+.playOverlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(transparent,rgba(0,0,0,.32))}
+.playBtn{width:54px;height:54px;border-radius:50%;background:rgba(0,0,0,.66);border:2px solid rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center}
+.playBtn:before{content:"";border-left:18px solid #fff;border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:4px}
 </style>
 
 <script src="https://www.youtube.com/iframe_api"></script>
@@ -132,16 +82,15 @@ h2{ margin:0 0 12px; text-align:center }
 <div class="bg-mark">Tropical Flow RadioTV</div>
 
 <header>
-  <h1>🌴 Tropical Flow TV 📺 Radio – VIP</h1>
+  <h1>🌴 Tropical Flow TV 📺 Radio Cristiana – VIP</h1>
 </header>
 
-<!-- Barra social -->
 <div class="top-social">
   <div class="social">
     <a class="whatsapp" href="https://wa.me/19399029695" target="_blank">WhatsApp</a>
-    <a class="youtube" href="https://www.youtube.com/@TFTvpoweredbyworldm8780" target="_blank">YouTube</a>
+    <a class="youtube"  href="https://www.youtube.com/@TFTvpoweredbyworldm8780" target="_blank">YouTube</a>
     <a class="facebook" href="https://www.facebook.com/profile.php?id=61555653663073" target="_blank">Facebook</a>
-    <a class="paypal" href="https://www.paypal.com/donate/?business=cartajoffice1@gmail.com&currency_code=USD" target="_blank">🎧 Donar vía PayPal</a>
+    <a class="paypal"   href="https://www.paypal.com/donate/?business=cartajoffice1@gmail.com&currency_code=USD" target="_blank">🎧 Donar vía PayPal</a>
     <a class="athmovil" href="https://www.athmovil.com/cartajo" target="_blank">Donar ATH Móvil</a>
   </div>
 </div>
@@ -152,7 +101,7 @@ h2{ margin:0 0 12px; text-align:center }
   <section id="radio">
     <h2>🎧 Tropical Flow TV Radio – Nueva Vida 24/7</h2>
     <audio id="radioAudio" controls autoplay>
-      <source src="https://nuevavida.zeno.fm/live" type="audio/mpeg">
+      <source src="https://live2.zeno.fm/your-stream-id?zs=pr" type="audio/mpeg">
       Tu navegador no soporta audio HTML5.
     </audio>
     <p class="hint">Si no escuchas, abre la radio en <a href="https://www.nuevavida.com" target="_blank">nueva pestaña</a>.</p>
@@ -160,7 +109,7 @@ h2{ margin:0 0 12px; text-align:center }
 
   <!-- CARRUSEL FULL WIDTH -->
   <section id="videos">
-    <h2>🎞 Videos de adoración</h2>
+    <h2>🎞 Videos Cristianos</h2>
     <div id="carouselShell">
       <div id="ytMain"></div>
     </div>
@@ -184,7 +133,11 @@ document.getElementById('year').textContent = new Date().getFullYear();
 /* ===== CARRUSEL FULL WIDTH ===== */
 const CAROUSEL_IDS = [
   "3Uo0JAUWijM","rD8bGlob__I","tpi8zLE3Kqw","RBE8A9rAj8Y","XYe0ZHVvVig",
-  "sJwzH_GU9Ts","1MavC5vtdrI","G3o2uD6W0tA","VJ2RC0I3qLg","Lk7TQvF2Kzo"
+  "x8oCJu1mD8Q","dQw4w9WgXcQ","kXYiU_JCYtU","C0DPdy98e4c","9bZkp7q19f0",
+  "5qap5aO4i9A","hY7m5jjJ9mM","tAGnKpE4NCI","ScMzIvxBSi4","RgKAFK5djSk",
+  "JGwWNGJdvx8","fLexgOxsZu0","hT_nvWreIhg","OPf0YbXqDm0","YQHsXMglC9A",
+  "09R8_2nJtjg","uelHwf8o7_U","uelHwf8o7_U","60ItHLz5WEA","kJQP7kiw5Fk",
+  "d-diB65scQU","3AtDnEC4zak","6Mgqbai3fKo","CevxZvSJLk8","pRpeEdMmmQ0"
 ];
 let cIndex=0, cPlayer=null;
 
@@ -235,3 +188,4 @@ function pauseAllExcept(kind){ /* No pause radio porque es HTML5 audio */ }
 })();
 </script>
 </body>
+</html>

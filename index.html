@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tropical Flow TV 📺 Radio Cristiana – VIP</title>
+<title>Tropical Flow TV 📺 Radio Cristiana – EXTREMO</title>
 <meta name="description" content="Tropical Flow TV Radio Cristiana — Música y Palabra 24/7.">
 
 <style>
@@ -14,29 +14,13 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#fff;background:#111;}
-.bg-mark{
-  position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.06;
-  display:flex; align-items:center; justify-content:center;
-  font-weight:900; letter-spacing:.08em; text-transform:uppercase;
-  font-size:clamp(38px,10vw,120px);
-}
+.bg-mark{position:fixed; inset:0; pointer-events:none; z-index:0; display:flex; align-items:center; justify-content:center;font-weight:900; letter-spacing:.08em; text-transform:uppercase; font-size:clamp(38px,10vw,120px);}
 header, footer{ position:relative; z-index:2; text-align:center; padding:14px; background:rgba(0,0,0,.5) }
 h1{ margin:0; font-size:clamp(22px,3.4vw,36px) }
 
-.top-social{
-  position:relative; z-index:2;
-  background:rgba(0,0,0,.6);
-  padding:10px 12px;
-}
-.social{
-  max-width:var(--maxw);
-  margin:0 auto;
-  display:flex; flex-wrap:wrap; gap:10px; justify-content:center;
-}
-.social a{
-  text-decoration:none; color:#fff; padding:.55rem .9rem; border-radius:10px; font-weight:800;
-  background:#444; display:inline-flex; align-items:center; gap:.5rem; border:1px solid rgba(255,255,255,.15);
-}
+.top-social{ position:relative; z-index:2; background:rgba(0,0,0,.6); padding:10px 12px;}
+.social{ max-width:var(--maxw); margin:0 auto; display:flex; flex-wrap:wrap; gap:10px; justify-content:center;}
+.social a{ text-decoration:none; color:#fff; padding:.55rem .9rem; border-radius:10px; font-weight:800; background:#444; display:inline-flex; align-items:center; gap:.5rem; border:1px solid rgba(255,255,255,.15);}
 .whatsapp{ background:#25d366 } .youtube{ background:#FF0000 }
 .facebook{ background:#3b5998 } .paypal{ background:#0070ba } .athmovil{ background:#6f42c1 }
 
@@ -73,6 +57,9 @@ h2{ margin:0 0 12px; text-align:center }
 .playOverlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(transparent,rgba(0,0,0,.32))}
 .playBtn{width:54px;height:54px;border-radius:50%;background:rgba(0,0,0,.66);border:2px solid rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center}
 .playBtn:before{content:"";border-left:18px solid #fff;border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:4px}
+
+/* CONTADOR DE OYENTES */
+#listeners{margin-top:12px;text-align:center;font-weight:700;color:#7CFC00}
 </style>
 
 <script src="https://www.youtube.com/iframe_api"></script>
@@ -81,7 +68,7 @@ h2{ margin:0 0 12px; text-align:center }
 <div class="bg-mark">Tropical Flow RadioTV</div>
 
 <header>
-  <h1>🌴 Tropical Flow TV 📺 Radio Cristiana – VIP</h1>
+  <h1>🌴 Tropical Flow TV 📺 Radio Cristiana – EXTREMO</h1>
 </header>
 
 <div class="top-social">
@@ -103,11 +90,12 @@ h2{ margin:0 0 12px; text-align:center }
       <source src="https://live2.zeno.fm/rx2rz3ht3druv" type="audio/mpeg">
       Tu navegador no soporta audio HTML5.
     </audio>
+    <div id="listeners">Oyentes en vivo: <span id="listenerCount">0</span></div>
   </section>
 
   <!-- PLAYLIST CANCIONES CRISTIANAS -->
   <section id="playlist">
-    <h2>🎵 Canciones Cristianas</h2>
+    <h2>🎵 Canciones Cristianas (AutoDJ)</h2>
     <div id="playlistWrap">
       <ul class="plist" id="plist">
         <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">Canción Cristiana 1</li>
@@ -115,7 +103,7 @@ h2{ margin:0 0 12px; text-align:center }
         <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3">Canción Cristiana 3</li>
         <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3">Canción Cristiana 4</li>
         <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3">Canción Cristiana 5</li>
-        <!-- Agrega más canciones aquí -->
+        <!-- Añade más canciones y se reproducirán automáticamente -->
       </ul>
     </div>
     <audio id="songPlayer" controls style="width:100%;margin-top:10px;"></audio>
@@ -144,17 +132,29 @@ h2{ margin:0 0 12px; text-align:center }
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-/* ===== PLAYLIST ===== */
+/* ===== CONTADOR DE OYENTES SIMULADO ===== */
+function updateListeners(){
+  const countEl=document.getElementById('listenerCount');
+  countEl.textContent = Math.floor(Math.random()*120 + 30); // Simula oyentes
+}
+setInterval(updateListeners,5000);
+updateListeners();
+
+/* ===== PLAYLIST Y AUTODJ ===== */
 const plist = document.getElementById('plist');
 const songPlayer = document.getElementById('songPlayer');
-plist.querySelectorAll('li').forEach(li=>{
-  li.onclick = ()=>{
-    plist.querySelectorAll('li').forEach(el=>el.classList.remove('active'));
-    li.classList.add('active');
-    songPlayer.src = li.dataset.src;
-    songPlayer.play();
-  }
-});
+let currentSong = 0;
+const songs = Array.from(plist.querySelectorAll('li'));
+function playSong(i){
+  songs.forEach(s=>s.classList.remove('active'));
+  songs[i].classList.add('active');
+  songPlayer.src = songs[i].dataset.src;
+  songPlayer.play();
+  currentSong = i;
+}
+songs.forEach((li,i)=>li.onclick = ()=>playSong(i));
+songPlayer.onended = ()=>playSong((currentSong+1)%songs.length);
+playSong(0);
 
 /* ===== CARRUSEL FULL WIDTH ===== */
 const CAROUSEL_IDS = [
@@ -187,7 +187,7 @@ function createCarousel(){
     events:{
       onReady:()=>{ updateCTitle(); },
       onStateChange:e=>{
-        if(e.data===YT.PlayerState.PLAYING){ pauseAllExcept('yt'); }
+        if(e.data===YT.PlayerState.PLAYING){}
         if(e.data===YT.PlayerState.ENDED){ nextC(); }
       }
     }
@@ -196,12 +196,10 @@ function createCarousel(){
   buildThumbs();
   document.getElementById('cPrev').onclick = prevC;
   document.getElementById('cNext').onclick = nextC;
-  document.getElementById('cToggle').onclick = ()=>{ const s=cPlayer.getPlayerState?.(); if(s===YT.PlayerState.PLAYING)cPlayer.pauseVideo(); else{ pauseAllExcept('yt'); cPlayer.playVideo(); } };
+  document.getElementById('cToggle').onclick = ()=>{ const s=cPlayer.getPlayerState?.(); if(s===YT.PlayerState.PLAYING)cPlayer.pauseVideo(); else cPlayer.playVideo(); };
   document.getElementById('cFs').onclick = ()=>{ if(document.fullscreenElement) document.exitFullscreen?.(); else document.getElementById('carouselShell')?.requestFullscreen?.(); };
 }
 function loadCarousel(play){ cPlayer.loadVideoById(CAROUSEL_IDS[cIndex]); markActive(); updateCTitle(); if(!play) cPlayer.pauseVideo?.(); }
-function pauseAllExcept(kind){ /* Radio sigue sonando */ }
-
 (function bootYT(){
   let started=false;
   function start(){ if(started)return; started=true; createCarousel(); }

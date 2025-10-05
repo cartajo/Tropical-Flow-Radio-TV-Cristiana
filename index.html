@@ -86,7 +86,6 @@ h2{ margin:0 0 12px; text-align:center }
   <h1>🌴 Tropical Flow TV 📺 Radio – VIP</h1>
 </header>
 
-<!-- 🔼 Barra social arriba -->
 <div class="top-social">
   <div class="social">
     <a class="whatsapp" href="https://wa.me/19399029695" target="_blank">WhatsApp</a>
@@ -99,7 +98,6 @@ h2{ margin:0 0 12px; text-align:center }
 
 <div class="wrap">
 
-  <!-- RADIO 24/7 Nueva Vida -->
   <section id="radio">
     <h2>🎧 Tropical Flow TV Radio – Nueva Vida 24/7</h2>
     <audio id="radioAudio" controls autoplay>
@@ -109,7 +107,6 @@ h2{ margin:0 0 12px; text-align:center }
     <p class="hint">Si no escuchas, abre la radio en <a href="https://www.nuevavida.com" target="_blank">nueva pestaña</a>.</p>
   </section>
 
-  <!-- CARRUSEL FULL WIDTH -->
   <section id="videos">
     <h2>🎞 Videos de adoración</h2>
     <div id="carouselShell">
@@ -132,14 +129,17 @@ h2{ margin:0 0 12px; text-align:center }
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
+/* --- Lista dinámica de videos cristianos --- */
 const CAROUSEL_IDS = [
   "3Uo0JAUWijM","rD8bGlob__I","tpi8zLE3Kqw","RBE8A9rAj8Y","XYe0ZHVvVig",
   "x8oCJu1mD8Q","dQw4w9WgXcQ","kXYiU_JCYtU","C0DPdy98e4c","9bZkp7q19f0",
   "5qap5aO4i9A","hY7m5jjJ9mM","tAGnKpE4NCI","ScMzIvxBSi4","RgKAFK5djSk",
   "JGwWNGJdvx8","fLexgOxsZu0","hT_nvWreIhg","OPf0YbXqDm0","YQHsXMglC9A"
 ];
+
 let cIndex=0, cPlayer=null;
 
+/* Construye miniaturas dinámicas */
 function buildThumbs(){
   const wrap=document.getElementById('thumbs');
   wrap.innerHTML = CAROUSEL_IDS.map((id,i)=>`
@@ -176,7 +176,6 @@ function createCarousel(){
     events:{
       onReady:()=>{ updateCTitle(); cPlayer.playVideo(); },
       onStateChange:e=>{
-        if(e.data===YT.PlayerState.PLAYING){ pauseAllExcept('yt'); }
         if(e.data===YT.PlayerState.ENDED){ nextC(); }
       }
     }
@@ -184,7 +183,7 @@ function createCarousel(){
   buildThumbs();
   document.getElementById('cPrev').onclick = prevC;
   document.getElementById('cNext').onclick = nextC;
-  document.getElementById('cToggle').onclick = ()=>{ const s=cPlayer.getPlayerState?.(); if(s===YT.PlayerState.PLAYING)cPlayer.pauseVideo(); else{ pauseAllExcept('yt'); cPlayer.playVideo(); } };
+  document.getElementById('cToggle').onclick = ()=>{ const s=cPlayer.getPlayerState?.(); if(s===YT.PlayerState.PLAYING)cPlayer.pauseVideo(); else cPlayer.playVideo(); };
   document.getElementById('cFs').onclick = ()=>{ if(document.fullscreenElement) document.exitFullscreen?.(); else document.getElementById('carouselShell')?.requestFullscreen?.(); };
 }
 
@@ -195,8 +194,7 @@ function loadCarousel(play){
   if(!play) cPlayer.pauseVideo?.(); 
 }
 
-function pauseAllExcept(kind){ }
-
+/* Boot YT */
 (function bootYT(){
   let started=false;
   function start(){ if(started)return; started=true; createCarousel(); }

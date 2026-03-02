@@ -142,11 +142,12 @@
     <h2>🎵 Canciones Cristianas (AutoDJ)</h2>
     <div id="playlistWrap">
       <ul class="plist" id="plist">
-        <li data-src="https://www.youtube.com/embed/7QrFTRey9qI?si=eTTTUCaW1CZmzNsR"> 1-Te Dolio</li>
-        <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">Canción Cristiana 2</li>
-        <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3">Canción Cristiana 3</li>
-        <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3">Canción Cristiana 4</li>
-        <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3">Canción Cristiana 5</li>
+        <!-- Aquí van todos tus MP3 subidos -->
+        <li data-src="https://tu-host.com/mp3/te-dolio.mp3">1- Te Dolio</li>
+        <li data-src="https://tu-host.com/mp3/cancion2.mp3">2- Canción Cristiana 2</li>
+        <li data-src="https://tu-host.com/mp3/cancion3.mp3">3- Canción Cristiana 3</li>
+        <li data-src="https://tu-host.com/mp3/cancion4.mp3">4- Canción Cristiana 4</li>
+        <li data-src="https://tu-host.com/mp3/cancion5.mp3">5- Canción Cristiana 5</li>
       </ul>
     </div>
     <audio id="songPlayer" controls style="width:100%;margin-top:10px;"></audio>
@@ -210,8 +211,7 @@ playSong(0);
 
 /* ===== CARRUSEL FULL WIDTH ===== */
 const CAROUSEL_IDS = [
-  "3Uo0JAUWijM","rD8bGlob__I","tpi8zLE3Kqw","RBE8A9rAj8Y","XYe0ZHVvVig",
-  "5DjpH2N2NkM","M5qgEB0oi5Y","u3uD3i5X3Lc","G4b1Xrjv0RQ","ZtHcA6xq6gA"
+  "3Uo0JAUWijM","rD8bGlob__I","tpi8zLE3Kqw","RBE8A9rAj8Y","XYe0ZHVvVig"
 ];
 let cIndex=0, cPlayer=null;
 function buildThumbs(){
